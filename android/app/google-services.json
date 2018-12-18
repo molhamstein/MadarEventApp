@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "258604498107",
+    "firebase_url": "https://al-madar-1542880489328.firebaseio.com",
+    "project_id": "al-madar-1542880489328",
+    "storage_bucket": "al-madar-1542880489328.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:258604498107:android:f4f1a79dcc84abef",
+        "android_client_info": {
+          "package_name": "com.example.almadar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "258604498107-g4olt95q7pdv8ga0a4accoerad58g07v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAo0Tj6M66LpWMuQhfHr3pa40QqeqbxqdM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
