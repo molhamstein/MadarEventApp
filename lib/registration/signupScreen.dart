@@ -1,6 +1,7 @@
 import 'package:al_madar/User.dart';
 import 'package:al_madar/bloc/auth_bloc.dart';
 import 'package:al_madar/madarLocalizer.dart';
+import 'package:al_madar/network.dart';
 import 'package:al_madar/network/session.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,7 @@ class SignUpScreenState extends State<SignUpScreen> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -27,8 +29,8 @@ class SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(
-      body: Stack(
+    return Material(
+      child: Stack(
         children: <Widget>[
           SingleChildScrollView(
             child: new Container(
@@ -53,6 +55,167 @@ class SignUpScreenState extends State<SignUpScreen> {
                         height: 100,
                       ),
                     ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 40, right: 40),
+                    child: new Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        new Text(
+                          MadarLocalizations.of(context).trans('phone'),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).accentColor,
+                            fontSize: 15.0,
+                          ),
+                        ),
+                        Text('*', style: TextStyle(color: Theme.of(context).primaryColor),)
+                      ],
+                    ),
+                  ),
+                  new Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.only(
+                        left: 40.0, right: 40.0, top: 10.0),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                            color: Colors.redAccent,
+                            width: 0.5,
+                            style: BorderStyle.solid),
+                      ),
+                    ),
+                    padding: const EdgeInsets.only(left: 0.0, right: 10.0),
+                    child: new Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        new Expanded(
+                          child: TextField(
+                            controller: phoneController,
+                            keyboardType: TextInputType.phone,
+                            textAlign: TextAlign.left,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context).accentColor)),
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context).accentColor)),
+                              hintText: '123456789',
+                              hintStyle: TextStyle(color: Colors.grey),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  Divider(
+                    height: 24.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 40, right: 40),
+                    child: new Row(
+                      children: <Widget>[
+                        new Text(
+                          MadarLocalizations.of(context).trans('user_name'),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).accentColor,
+                            fontSize: 15.0,
+                          ),
+                        ),
+                        Text('*', style: TextStyle(color: Theme.of(context).primaryColor),),
+                      ],
+                    ),
+                  ),
+                  new Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.only(
+                        left: 40.0, right: 40.0, top: 10.0),
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.only(left: 0.0, right: 10.0),
+                    child: new Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        new Expanded(
+                          child: TextField(
+                            controller: displayNameController,
+                            textAlign: TextAlign.left,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context).accentColor)),
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context).accentColor)),
+                              hintText: MadarLocalizations.of(context)
+                                  .trans('user_name'),
+                              hintStyle: TextStyle(color: Colors.grey),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    height: 24.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 40, right: 40),
+                    child: new Row(
+                      children: <Widget>[
+                        new Text(
+                          MadarLocalizations.of(context).trans('password'),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).accentColor,
+                            fontSize: 15.0,
+                          ),
+                        ),
+                        Text('*', style: TextStyle(color: Theme.of(context).primaryColor),),
+                      ],
+                    ),
+                  ),
+                  new Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.only(
+                        left: 40.0, right: 40.0, top: 10.0),
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.only(left: 0.0, right: 10.0),
+                    child: new Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        new Expanded(
+                          child: TextField(
+                            controller: passwordController,
+                            obscureText: true,
+                            textAlign: TextAlign.left,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context).accentColor)),
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context).accentColor)),
+                              hintText: '*********',
+                              hintStyle: TextStyle(color: Colors.grey),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    height: 24.0,
                   ),
                   new Row(
                     children: <Widget>[
@@ -101,167 +264,6 @@ class SignUpScreenState extends State<SignUpScreen> {
                       ],
                     ),
                   ),
-                  Divider(
-                    height: 24.0,
-                  ),
-                  new Row(
-                    children: <Widget>[
-                      new Expanded(
-                        child: new Padding(
-                          padding: const EdgeInsets.only(left: 40.0, right: 40.0),
-                          child: new Text(
-                            MadarLocalizations.of(context).trans('user_name'),
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).accentColor,
-                              fontSize: 15.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  new Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.only(
-                        left: 40.0, right: 40.0, top: 10.0),
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.only(left: 0.0, right: 10.0),
-                    child: new Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        new Expanded(
-                          child: TextField(
-                            controller: displayNameController,
-                            textAlign: TextAlign.left,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Theme.of(context).accentColor)),
-                              enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Theme.of(context).accentColor)),
-                              hintText: MadarLocalizations.of(context)
-                                  .trans('user_name'),
-                              hintStyle: TextStyle(color: Colors.grey),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Divider(
-                    height: 24.0,
-                  ),
-                  new Row(
-                    children: <Widget>[
-                      new Expanded(
-                        child: new Padding(
-                          padding: const EdgeInsets.only(left: 40.0, right: 40.0),
-                          child: new Text(
-                            MadarLocalizations.of(context).trans('password'),
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).accentColor,
-                              fontSize: 15.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  new Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.only(
-                        left: 40.0, right: 40.0, top: 10.0),
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.only(left: 0.0, right: 10.0),
-                    child: new Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        new Expanded(
-                          child: TextField(
-                            controller: passwordController,
-                            obscureText: true,
-                            textAlign: TextAlign.left,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Theme.of(context).accentColor)),
-                              enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Theme.of(context).accentColor)),
-                              hintText: '*********',
-                              hintStyle: TextStyle(color: Colors.grey),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Divider(
-                    height: 24.0,
-                  ),
-                  new Row(
-                    children: <Widget>[
-                      new Expanded(
-                        child: new Padding(
-                          padding: const EdgeInsets.only(left: 40.0, right: 40.0),
-                          child: new Text(
-                            MadarLocalizations.of(context).trans('phone'),
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).accentColor,
-                              fontSize: 15.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  new Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.only(
-                        left: 40.0, right: 40.0, top: 10.0),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                            color: Colors.redAccent,
-                            width: 0.5,
-                            style: BorderStyle.solid),
-                      ),
-                    ),
-                    padding: const EdgeInsets.only(left: 0.0, right: 10.0),
-                    child: new Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        new Expanded(
-                          child: TextField(
-                            controller: phoneController,
-                            keyboardType: TextInputType.phone,
-                            textAlign: TextAlign.left,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Theme.of(context).accentColor)),
-                              enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Theme.of(context).accentColor)),
-                              hintText: '123456789',
-                              hintStyle: TextStyle(color: Colors.grey),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                   new Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
@@ -295,14 +297,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                               borderRadius: new BorderRadius.circular(30.0),
                             ),
                             color: Theme.of(context).primaryColor,
-                            onPressed: () {
-                              authBloc.startLoad();
-                              authBloc.signUp(
-                                  displayNameController.text,
-                                  emailController.text,
-                                  phoneController.text,
-                                  passwordController.text);
-                            },
+                            onPressed: handleEmpty,
                             child: new Container(
                               padding: const EdgeInsets.symmetric(
                                 vertical: 20.0,
@@ -344,20 +339,6 @@ class SignUpScreenState extends State<SignUpScreen> {
               return Container();
             },
           ),
-          StreamBuilder<User>(
-            stream: authBloc.getSignUpUser,
-            builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
-              if (snapshot.hasData) {
-                print(snapshot.data.email);
-                authBloc.stopLoad();
-                Session.setUser(snapshot.data);
-                Future.delayed(Duration(microseconds: 1)).then((s) =>
-                    Navigator.pushReplacementNamed(context,
-                        '/step2SignUpScreen')); //TODO: find another way
-              }
-              return Container();
-            },
-          ),
         ],
       ),
     );
@@ -373,4 +354,51 @@ class SignUpScreenState extends State<SignUpScreen> {
       ),
     );
   }
+
+  showSnackBar(String error) {
+    final err = error.split("!");
+    final snackBar = SnackBar(
+      key: _scaffoldKey,
+      content: Text(err.first),
+      action: SnackBarAction(
+        label: 'cancel',
+        onPressed: () {
+          Scaffold.of(context).hideCurrentSnackBar();
+        },
+      ),
+    );
+    Scaffold.of(context).showSnackBar(snackBar);
+  }
+
+
+  handleEmpty() {
+    if (phoneController.text.isEmpty) {
+      showSnackBar('Mobile can\'t be empty');
+      return;
+    }
+    if (displayNameController.text.isEmpty){
+      showSnackBar('Name cant be empty');
+      return;
+    }
+    if (passwordController.text.isEmpty){
+      showSnackBar('Password cant be empty');
+      return;
+    }
+
+    if (passwordController.text.isNotEmpty && displayNameController.text.isNotEmpty && phoneController.text.isNotEmpty) {
+      authBloc.startLoad();
+      Network.signUp(
+          displayNameController.text,
+          emailController.text,
+          phoneController.text,
+          passwordController.text).then((user) {
+            Session.setUser(user);
+            authBloc.stopLoad();
+          }).catchError((e){
+        showSnackBar(e['Error']['Message']);
+        authBloc.stopLoad();
+      });
+    }
+  }
+
 }

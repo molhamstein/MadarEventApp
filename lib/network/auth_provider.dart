@@ -23,7 +23,7 @@ class AuthProvider {
       return User.fromJson(json.decode(response.body)['LoggedInUser']);
     } else {
       print(response.body);
-      throw Exception('Failed to load');
+      throw json.decode(response.body);
     }
   }
 
@@ -46,7 +46,7 @@ class AuthProvider {
     if (response.statusCode == 200) {
       return User.fromJson(json.decode(response.body)['LoggedInUser']); //String
     } else {
-      throw Exception(response.body.toString());
+      throw json.decode(response.body);
     }
   }
 

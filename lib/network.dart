@@ -13,19 +13,25 @@ class Network {
     'Accept': 'application/json',
   };
 
-  static Future<User> login(String email, String password) async {
-    Map<String, String> body = {
-      'phoneNumber': email,
-      'password': password,
-    };
-    final response = await http
-        .post('http://104.217.253.15:3003/api/users/login', body: body);
+  static  Future<User> login(String userName, String password) async {
+    var body = json.encode({
+      'UserName': userName,
+      'Password': password,
+      'APIKEY': 'SD<DJF<JDJD<',
+    });
+    final response = await http.post(
+        'https://almadar.azurewebsites.net/Services/Administration/UserAPI/Login',
+        body: body, headers: headers);
     if (response.statusCode == 200) {
-      return User.fromJson(json.decode(response.body));
+      print(json.decode(response.body));
+      return User.fromJson(json.decode(response.body)['LoggedInUser']);
     } else {
-      throw Exception('Failed to load');
+      print(response.body);
+      throw json.decode(response.body);
     }
   }
+
+
 
   static Future<User> signUp(
       String displayName, String email, String mobile, String password) async {
@@ -46,10 +52,9 @@ class Network {
     if (response.statusCode == 200) {
       return User.fromJson(json.decode(response.body)['LoggedInUser']); //String
     } else {
-      throw Exception(response.body.toString());
+      throw json.decode(response.body);
     }
   }
-
   static Future<dynamic> signUpWithFacebook(
       String displayName, String email, String facebookId) async {
     var body = json.encode({
@@ -310,6 +315,53 @@ class Network {
     );
     if (response.statusCode == 200) {
       return true;
+    } else {
+      print(json.decode(response.body));
+      throw Exception('Failed to load');
+    }
+  }
+
+  static Future<Null> submitForm(
+      String authToken,
+      String name,
+      String phone,
+      String destinationCity,
+      String arrivalDate,
+      String departureDate,
+      String numberOfAdults,
+      String numberOfChildren,
+      String numberOfRooms,
+      bool fromAirport,
+      bool toAirport,
+      bool cityTours,
+      int hotelRating,
+      String details) async {
+    var body = json.encode({
+      "APIKEY": "SD<DJF<JDJD<",
+      "AuthToken": authToken,
+      "Message": {
+        "Name": name,
+        "Mobile": phone,
+        "DestinationCity": destinationCity,
+        "ArrivalDate": arrivalDate,
+        "DepartureDate": departureDate,
+        "NumberOfPeople": numberOfAdults,
+        "NumberOfChildren": numberOfChildren,
+        "NumberOfRooms": numberOfRooms,
+        "PickupFromAirports": fromAirport,
+        "TransportToAirport": toAirport,
+        "CityTours": cityTours,
+        "HotelRating": hotelRating,
+        "Details": details
+      }
+    });
+    final response = await http.post(
+      'https://almadar.azurewebsites.net/Services/CustomersManagement/TripAPI/SendMessage',
+      body: body,
+      headers: headers,
+    );
+    if (response.statusCode == 200) {
+      return;
     } else {
       print(json.decode(response.body));
       throw Exception('Failed to load');

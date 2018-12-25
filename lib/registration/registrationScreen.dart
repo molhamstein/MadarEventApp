@@ -44,9 +44,8 @@ class _RegistrationScreenState extends State<RegistrationScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: MediaQuery.of(context).size.height,
-        child: PageView(
+    return Scaffold(
+        body: PageView(
           controller: _controller,
           physics: new AlwaysScrollableScrollPhysics(),
           children: <Widget>[

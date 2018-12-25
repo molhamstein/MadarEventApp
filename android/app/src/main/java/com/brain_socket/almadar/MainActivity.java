@@ -1,4 +1,4 @@
-package com.example.almadar;
+package com.brain_socket.almadar;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

@@ -69,14 +69,14 @@ class WeatherState extends State<Weather> with TickerProviderStateMixin {
                     data.description,
                     style: TextStyle(
                       color: Colors.grey,
-                      fontSize: 16,
+                      fontSize: 12,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 16.0),
+                padding: const EdgeInsets.only(top: 10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[

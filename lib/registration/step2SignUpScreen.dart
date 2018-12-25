@@ -36,10 +36,6 @@ class Step2SignUpScreenState extends State<Step2SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(bottom: 16),
         child: Container(

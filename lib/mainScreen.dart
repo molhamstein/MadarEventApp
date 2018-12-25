@@ -1,4 +1,5 @@
 import 'package:al_madar/AboutScreen.dart';
+import 'package:al_madar/form.dart';
 import 'package:al_madar/madarLocalizer.dart';
 import 'package:al_madar/network/session.dart';
 import 'package:al_madar/newsScreen.dart';
@@ -7,10 +8,7 @@ import 'package:al_madar/offersScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 class MainScreen extends StatefulWidget {
-
-
   @override
   MainScreenState createState() {
     return new MainScreenState();
@@ -28,14 +26,21 @@ class MainScreenState extends State<MainScreen> {
     return DefaultTabController(
       length: 4,
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => FormPage()));
+          },
+          child: Icon(
+            Icons.map,
+            color: Colors.white,
+          ),
+        ),
         appBar: PreferredSize(
           child: Stack(
             children: <Widget>[
               Container(
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,
+                width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     colorFilter: ColorFilter.mode(
@@ -45,12 +50,8 @@ class MainScreenState extends State<MainScreen> {
                   ),
                   gradient: LinearGradient(
                     colors: [
-                      Theme
-                          .of(context)
-                          .primaryColor,
-                      Theme
-                          .of(context)
-                          .accentColor
+                      Theme.of(context).primaryColor,
+                      Theme.of(context).accentColor
                     ],
                     begin: Alignment.bottomLeft,
                     end: Alignment(0.8, 0.0),
@@ -136,5 +137,4 @@ class MainScreenState extends State<MainScreen> {
     launch(
         'mailto:<services@almadarholidays.com>,<reservation@almadarholidays.com>?subject=Hello');
   }
-
 }

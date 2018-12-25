@@ -16,15 +16,17 @@ class ChooseAccountScreen extends StatelessWidget {
     return Material(
       child: Stack(
         children: <Widget>[
-          Container(
-            height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.3), BlendMode.dstATop),
-                image: AssetImage('assets/images/istanbul.png'),
-                fit: BoxFit.cover,
+          SingleChildScrollView(
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  colorFilter: ColorFilter.mode(Colors.white.withOpacity(0.3), BlendMode.dstATop),
+                  image: AssetImage('assets/images/istanbul.png'),
+                  fit: BoxFit.cover,
+                ),
+                  gradient: LinearGradient(colors: [Theme.of(context).primaryColor, Theme.of(context).accentColor], begin: Alignment.bottomLeft, end: Alignment(0.8, 0.0), )
               ),
-                gradient: LinearGradient(colors: [Theme.of(context).primaryColor, Theme.of(context).accentColor], begin: Alignment.bottomLeft, end: Alignment(0.8, 0.0), )
             ),
           ),
 

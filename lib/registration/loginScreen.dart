@@ -10,7 +10,6 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 class LoginScreen extends StatefulWidget {
   @override
   LoginScreenState createState() => LoginScreenState();
@@ -18,9 +17,10 @@ class LoginScreen extends StatefulWidget {
 
 class LoginScreenState extends State<LoginScreen> {
   bool _shouldLoad = false;
-  TextEditingController userNameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   AuthBloc authBloc;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -65,14 +65,12 @@ class LoginScreenState extends State<LoginScreen> {
                       new Expanded(
                         child: new Padding(
                           padding:
-                          const EdgeInsets.only(left: 40.0, right: 40.0),
+                              const EdgeInsets.only(left: 40.0, right: 40.0),
                           child: new Text(
-                            MadarLocalizations.of(context).trans('user_name'),
+                            MadarLocalizations.of(context).trans('phone'),
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Theme
-                                  .of(context)
-                                  .accentColor,
+                              color: Theme.of(context).accentColor,
                               fontSize: 15.0,
                             ),
                           ),
@@ -81,10 +79,7 @@ class LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   new Container(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width,
+                    width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.only(
                         left: 40.0, right: 40.0, top: 10.0),
                     alignment: Alignment.center,
@@ -95,22 +90,18 @@ class LoginScreenState extends State<LoginScreen> {
                       children: <Widget>[
                         new Expanded(
                           child: TextField(
-                            controller: userNameController,
+                            controller: phoneController,
                             textAlign: TextAlign.left,
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: MadarLocalizations.of(context)
-                                  .trans('user_name'),
+                              hintText:
+                                  MadarLocalizations.of(context).trans('phone'),
                               focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Theme
-                                          .of(context)
-                                          .accentColor)),
+                                      color: Theme.of(context).accentColor)),
                               enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Theme
-                                          .of(context)
-                                          .accentColor)),
+                                      color: Theme.of(context).accentColor)),
                               hintStyle: TextStyle(color: Colors.grey),
                             ),
                           ),
@@ -126,14 +117,12 @@ class LoginScreenState extends State<LoginScreen> {
                       new Expanded(
                         child: new Padding(
                           padding:
-                          const EdgeInsets.only(left: 40.0, right: 40.0),
+                              const EdgeInsets.only(left: 40.0, right: 40.0),
                           child: new Text(
                             MadarLocalizations.of(context).trans('password'),
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Theme
-                                  .of(context)
-                                  .accentColor,
+                              color: Theme.of(context).accentColor,
                               fontSize: 15.0,
                             ),
                           ),
@@ -142,10 +131,7 @@ class LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   new Container(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width,
+                    width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.only(
                         left: 40.0, right: 40.0, top: 10.0),
                     alignment: Alignment.center,
@@ -162,14 +148,10 @@ class LoginScreenState extends State<LoginScreen> {
                             decoration: InputDecoration(
                               focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Theme
-                                          .of(context)
-                                          .accentColor)),
+                                      color: Theme.of(context).accentColor)),
                               enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Theme
-                                          .of(context)
-                                          .accentColor)),
+                                      color: Theme.of(context).accentColor)),
                               border: InputBorder.none,
                               hintText: '*********',
                               hintStyle: TextStyle(color: Colors.grey),
@@ -193,9 +175,7 @@ class LoginScreenState extends State<LoginScreen> {
                                 .trans('forgot_password'),
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Theme
-                                  .of(context)
-                                  .accentColor,
+                              color: Theme.of(context).accentColor,
                               fontSize: 15.0,
                             ),
                             textAlign: TextAlign.end,
@@ -208,10 +188,7 @@ class LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   new Container(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width,
+                    width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.only(
                         left: 30.0, right: 30.0, top: 20.0),
                     alignment: Alignment.center,
@@ -222,13 +199,10 @@ class LoginScreenState extends State<LoginScreen> {
                             shape: new RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(30.0),
                             ),
-                            color: Theme
-                                .of(context)
-                                .primaryColor,
+                            color: Theme.of(context).primaryColor,
                             onPressed: () {
-                              authBloc.login('00963933074900', 'Asdf@1234');
+                              handleEmpty();
 //                              authBloc.login(userNameController.text, passwordController.text);
-                              authBloc.startLoad();
                             },
                             child: new Container(
                               padding: const EdgeInsets.symmetric(
@@ -257,10 +231,7 @@ class LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   new Container(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width,
+                    width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.only(
                         left: 30.0, right: 30.0, top: 20.0),
                     alignment: Alignment.center,
@@ -270,7 +241,7 @@ class LoginScreenState extends State<LoginScreen> {
                           child: new Container(
                             margin: EdgeInsets.all(8.0),
                             decoration:
-                            BoxDecoration(border: Border.all(width: 0.25)),
+                                BoxDecoration(border: Border.all(width: 0.25)),
                           ),
                         ),
                         Text(
@@ -285,17 +256,14 @@ class LoginScreenState extends State<LoginScreen> {
                           child: new Container(
                             margin: EdgeInsets.all(8.0),
                             decoration:
-                            BoxDecoration(border: Border.all(width: 0.25)),
+                                BoxDecoration(border: Border.all(width: 0.25)),
                           ),
                         ),
                       ],
                     ),
                   ),
                   new Container(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width,
+                    width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.only(
                         left: 30.0, right: 30.0, top: 20.0),
                     child: new Row(
@@ -310,14 +278,14 @@ class LoginScreenState extends State<LoginScreen> {
                                   child: new FlatButton(
                                     shape: new RoundedRectangleBorder(
                                       borderRadius:
-                                      new BorderRadius.circular(30.0),
+                                          new BorderRadius.circular(30.0),
                                     ),
                                     color: Color(0Xff3B5998),
                                     onPressed: () => {},
                                     child: new Container(
                                       child: new Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                         children: <Widget>[
                                           new Expanded(
                                             child: new FlatButton(
@@ -328,8 +296,8 @@ class LoginScreenState extends State<LoginScreen> {
                                               ),
                                               child: new Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceEvenly,
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
                                                 children: <Widget>[
                                                   Icon(
                                                     SocialIcons.facebook,
@@ -341,7 +309,7 @@ class LoginScreenState extends State<LoginScreen> {
                                                     style: TextStyle(
                                                         color: Colors.white,
                                                         fontWeight:
-                                                        FontWeight.bold),
+                                                            FontWeight.bold),
                                                   ),
                                                 ],
                                               ),
@@ -366,14 +334,14 @@ class LoginScreenState extends State<LoginScreen> {
                                   child: new FlatButton(
                                     shape: new RoundedRectangleBorder(
                                       borderRadius:
-                                      new BorderRadius.circular(30.0),
+                                          new BorderRadius.circular(30.0),
                                     ),
                                     color: Color(0Xffdb3236),
                                     onPressed: () => {},
                                     child: new Container(
                                       child: new Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                         children: <Widget>[
                                           new Expanded(
                                             child: new FlatButton(
@@ -384,8 +352,8 @@ class LoginScreenState extends State<LoginScreen> {
                                               ),
                                               child: new Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceEvenly,
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
                                                 children: <Widget>[
                                                   Icon(
                                                     SocialIcons.google,
@@ -397,7 +365,7 @@ class LoginScreenState extends State<LoginScreen> {
                                                     style: TextStyle(
                                                         color: Colors.white,
                                                         fontWeight:
-                                                        FontWeight.bold),
+                                                            FontWeight.bold),
                                                   ),
                                                 ],
                                               ),
@@ -419,20 +387,6 @@ class LoginScreenState extends State<LoginScreen> {
               ),
             ),
             StreamBuilder(
-              stream: authBloc.getUser,
-              builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
-                print(snapshot.connectionState);
-                if (snapshot.hasData) {
-                  authBloc.stopLoad();
-                  Session.setUser(snapshot.data);
-                  Future.delayed(Duration(microseconds: 1)).then((s) =>
-                      Navigator.pushReplacementNamed(
-                          context, '/mainScreen')); //TODO: find another way
-                }
-                return Container();
-              },
-            ),
-            StreamBuilder(
               stream: authBloc.shouldShowLoader,
               builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
                 if (snapshot.connectionState == ConnectionState.active &&
@@ -443,7 +397,7 @@ class LoginScreenState extends State<LoginScreen> {
                 }
                 return Container();
               },
-            )
+            ),
           ],
         ),
       ),
@@ -460,20 +414,19 @@ class LoginScreenState extends State<LoginScreen> {
         Network.getFacebookProfile(result.accessToken.token).then((profile) {
           authBloc.startLoad();
           Network.signUpWithFacebook(
-              profile['name'], profile['email'], profile['id'])
+                  profile['name'], profile['email'], profile['id'])
               .then((json) {
             if (json['ResultCode'] == -3) {
               Session.setUserFromFacebook(
-                  profile['name'], profile['email'], profile['id'])
+                      profile['name'], profile['email'], profile['id'])
                   .then((non) {
-                    authBloc.stopLoad();
+                authBloc.stopLoad();
                 Navigator.pushReplacement(
                     context,
                     new MaterialPageRoute(
-                        builder: (context) =>
-                        new Step2SignUpScreen(
-                          showPhoneTextFiled: true,
-                        )));
+                        builder: (context) => new Step2SignUpScreen(
+                              showPhoneTextFiled: true,
+                            )));
               });
             } else {
               print(json['LoggedInUser']);
@@ -508,16 +461,15 @@ class LoginScreenState extends State<LoginScreen> {
         if (json['ResultCode'] == -4) {
           authBloc.startLoad();
           Session.setUserFromGoogle(
-              account.displayName, account.email, account.id)
+                  account.displayName, account.email, account.id)
               .then((non) {
             authBloc.stopLoad();
             Navigator.pushReplacement(
               context,
               new MaterialPageRoute(
-                builder: (context) =>
-                new Step2SignUpScreen(
-                  showPhoneTextFiled: true,
-                ),
+                builder: (context) => new Step2SignUpScreen(
+                      showPhoneTextFiled: true,
+                    ),
               ),
             );
           });
@@ -534,14 +486,8 @@ class LoginScreenState extends State<LoginScreen> {
 
   Widget _loading() {
     return Container(
-      height: MediaQuery
-          .of(context)
-          .size
-          .height,
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
       color: Color.fromRGBO(255, 255, 255, 0.4),
       child: Center(
         child: CircularProgressIndicator(),
@@ -558,5 +504,44 @@ class LoginScreenState extends State<LoginScreen> {
   sendMail() {
     launch(
         'mailto:<services@almadarholidays.com>?subject=I Forgot my Password&body=Could you please reset my password.');
+  }
+
+  handleEmpty() {
+    if (phoneController.text.isEmpty) {
+      showSnackBar('Mobile can\'t be empty');
+      return;
+    }
+    if (passwordController.text.isEmpty) {
+      showSnackBar('Password can\'t be empty');
+      return;
+    }
+    login();
+  }
+
+  showSnackBar(String error) {
+    final err = error.split("!");
+    final snackBar = SnackBar(
+      key: _scaffoldKey,
+      content: Text(err.first),
+      action: SnackBarAction(
+        label: 'cancel',
+        onPressed: () {
+          Scaffold.of(context).hideCurrentSnackBar();
+        },
+      ),
+    );
+    Scaffold.of(context).showSnackBar(snackBar);
+  }
+
+  login() {
+    authBloc.startLoad();
+    Network.login(phoneController.text, passwordController.text).then((user) {
+      authBloc.stopLoad();
+      Session.setUser(user);
+      Navigator.pushReplacementNamed(context, '/mainScreen');
+    }).catchError((e) {
+      authBloc.stopLoad();
+      showSnackBar(e['Error']['Message']);
+    });
   }
 }

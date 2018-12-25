@@ -9,21 +9,42 @@ class AuthBloc extends BaseBloc {
   final _loggedOut = PublishSubject<bool>();
   final _signUpMsg = PublishSubject<User>();
   final _countries = PublishSubject<CountryList>();
+  final _error = PublishSubject<String>();
 
   Stream<User> get getUser => _doLogin.stream;
+
   Stream<User> get getSignUpUser => _signUpMsg.stream;
+
   Stream<CountryList> get getCountries => _countries.stream;
 
+  Stream<String> get errorMsg => _error.stream;
+
+  Future get cancelError => _error.sink.close();
+
   login(String userName, String password) async {
-    User user = await repository.login(userName, password);
-    Session.setUser(user);
-    _doLogin.sink.add(user);
+    repository.login(userName, password).then((user) {
+      Session.setUser(user);
+      _doLogin.sink.add(user);
+    }).catchError((e) {
+      stopLoad();
+      _error.sink.add(e['Error']['Message']);
+      print(e['Error']['Message']);
+    });
   }
 
-  signUp(String displayName, String email, String mobile, String password) async {
-    User user = await repository.signUp(
-        displayName, email, mobile, password);
-    _signUpMsg.sink.add(user);
+  signUp(
+      String displayName, String email, String mobile, String password) async {
+//    User user = await repository.signUp(
+//        displayName, email, mobile, password);
+//    _signUpMsg.sink.add(user);
+    repository.signUp(displayName, email, mobile, password).then((user) {
+      _signUpMsg.sink.add(user);
+      stopLoad();
+    }).catchError((e) {
+      stopLoad();
+      _error.sink.add(e['Error']['Message']);
+      print(e['Error']['Message']);
+    });
   }
 
   fetchCountries() async {
@@ -42,6 +63,7 @@ class AuthBloc extends BaseBloc {
     _loggedOut.close();
     _signUpMsg.close();
     _countries.close();
+    _error.close();
     super.dispose();
   }
 }
