@@ -11,6 +11,7 @@ class Exchange extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.transparent,
       child: Container(
         width: 120,
         padding: EdgeInsets.all(8),
@@ -45,7 +46,7 @@ class Exchange extends StatelessWidget {
               ],
             ),
             Text(
-              "${data.rate.toStringAsFixed(2)}",
+              "${data.rate.toStringAsFixed(1)}",
               style: TextStyle(
                   color: Colors.grey[700],
                   fontSize: 42,

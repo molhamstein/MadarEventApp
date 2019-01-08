@@ -1,4 +1,5 @@
 import 'package:al_madar/AboutScreen.dart';
+import 'package:al_madar/decorated_container.dart';
 import 'package:al_madar/form.dart';
 import 'package:al_madar/madarLocalizer.dart';
 import 'package:al_madar/network/session.dart';
@@ -26,16 +27,6 @@ class MainScreenState extends State<MainScreen> {
     return DefaultTabController(
       length: 4,
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => FormPage()));
-          },
-          child: Icon(
-            Icons.map,
-            color: Colors.white,
-          ),
-        ),
         appBar: PreferredSize(
           child: Stack(
             children: <Widget>[
@@ -66,14 +57,41 @@ class MainScreenState extends State<MainScreen> {
                   width: 40,
                 ),
                 actions: <Widget>[
-                  IconButton(
-                    icon: Icon(
-                      Icons.person_outline,
-                      color: Colors.white,
+                  Padding(
+                    padding: const EdgeInsets.only(right: 12, left: 12),
+                    child: InkWell(
+                      onTap: (){
+                        Navigator.push(
+                            context, MaterialPageRoute(builder: (context) => FormPage()));
+                      },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.airplanemode_active),
+                          Text(MadarLocalizations.of(context).trans('trip')),
+                        ],
+                      ),
                     ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/profileScreen');
-                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0, left: 8),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/profileScreen');
+                      },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.person_outline,
+                            color: Colors.white,
+                          ),
+                          Text(MadarLocalizations.of(context).trans('me'))
+                        ],
+                      ),
+                    ),
                   ),
                   PopupMenuButton<String>(
                     itemBuilder: (BuildContext context) {
@@ -121,13 +139,15 @@ class MainScreenState extends State<MainScreen> {
           ),
           preferredSize: Size.fromHeight(100.0),
         ),
-        body: TabBarView(
-          children: [
-            NowScreen(),
-            NewsScreen(),
-            OffersScreen(),
-            AboutScreen(),
-          ],
+        body: DecoratedContainer(
+          child: TabBarView(
+            children: [
+              NowScreen(),
+              NewsScreen(),
+              OffersScreen(),
+              AboutScreen(),
+            ],
+          ),
         ),
       ),
     );

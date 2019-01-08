@@ -27,6 +27,9 @@
   "submit" : "Submit",
   "password_confirmation" : "Password Confirmation",
   "edit_profile" : "Edit Profile",
-  "edit_password" : "Edit Password"
+  "edit_password" : "Edit Password",
+  "trip" : "Trip",
+  "me" : "Me"
+
 
 }

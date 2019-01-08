@@ -1,3 +1,4 @@
+import 'package:al_madar/decorated_container.dart';
 import 'package:al_madar/madarLocalizer.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +8,7 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Padding(
         padding: const EdgeInsets.only(top: 88.0),
         child: SingleChildScrollView(
@@ -28,8 +30,8 @@ class AboutScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Center(child: Text('+90 (530) 653 44 31')),
-              Center(child: Text('+90 (530) 651 44 31')),
+              Center(child: Text('+90 (530) 653 44 31', textDirection: TextDirection.ltr,)),
+              Center(child: Text('+90 (530) 651 44 31', textDirection: TextDirection.ltr)),
               Center(child: Text('services@almadarholidays.com')),
               Center(child: Text('reservation@almadarholidays.com')),
             ],

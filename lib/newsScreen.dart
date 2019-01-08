@@ -1,3 +1,4 @@
+import 'package:al_madar/decorated_container.dart';
 import 'package:al_madar/network.dart';
 import 'package:al_madar/post_details.dart';
 import 'package:al_madar/widgets/Ticket.dart';
@@ -24,6 +25,7 @@ class NewsScreenState extends State<NewsScreen>
   Widget build(BuildContext context) {
     super.build(context);
     return Material(
+      color: Colors.transparent,
       child: Padding(
         padding: const EdgeInsets.only(top: 8.0),
         child: ListView.builder(

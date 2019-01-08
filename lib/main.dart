@@ -56,6 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       supportedLocales: [
         const Locale('en', 'US'),
         const Locale('ar', ''),

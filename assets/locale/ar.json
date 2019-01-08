@@ -27,6 +27,9 @@
   "submit" : "تسجيل",
   "password_confirmation" : "تأكيد كلمة المرور",
   "edit_profile" : "تعديل الملف الشخصي",
-  "edit_password" : "تعديل كلمة المرور"
+  "edit_password" : "تعديل كلمة المرور",
+  "trip" : "رحلة",
+  "me" : "أنا"
+
 
 }

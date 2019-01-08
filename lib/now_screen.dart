@@ -1,3 +1,4 @@
+import 'package:al_madar/decorated_container.dart';
 import 'package:al_madar/madarLocalizer.dart';
 import 'package:al_madar/network.dart';
 import 'package:al_madar/widgets/exchange.dart';
@@ -31,6 +32,7 @@ class NowScreenState extends State<NowScreen> with AutomaticKeepAliveClientMixin
       leftPadding = 0;
     }
     return Material(
+      color: Colors.transparent,
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,6 +57,7 @@ class NowScreenState extends State<NowScreen> with AutomaticKeepAliveClientMixin
                   style: TextStyle(fontWeight: FontWeight.w800)),
             ),
             Container(
+              color: Colors.transparent,
               height: 150,
               child: ListView(
                 shrinkWrap: true,
