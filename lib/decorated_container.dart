@@ -11,11 +11,7 @@ class DecoratedContainer extends StatelessWidget {
     return Container(
       child: child,
       decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/images/istanbul.png'),
-              fit: BoxFit.cover,
-            colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
-          ),
+          gradient: LinearGradient(colors: [Colors.blue, Colors.white], begin: Alignment.bottomLeft, end: Alignment.topRight),
       ),
     );
   }

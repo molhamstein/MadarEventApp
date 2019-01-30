@@ -27,32 +27,10 @@ class MainScreenState extends State<MainScreen> {
     return DefaultTabController(
       length: 4,
       child: Scaffold(
-        appBar: PreferredSize(
-          child: Stack(
-            children: <Widget>[
-              Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    colorFilter: ColorFilter.mode(
-                        Colors.white.withOpacity(0.3), BlendMode.dstATop),
-                    image: AssetImage('assets/images/istanbul.png'),
-                    fit: BoxFit.cover,
-                  ),
-                  gradient: LinearGradient(
-                    colors: [
-                      Theme.of(context).primaryColor,
-                      Theme.of(context).accentColor
-                    ],
-                    begin: Alignment.bottomLeft,
-                    end: Alignment(0.8, 0.0),
-                  ),
-                ),
-              ),
-              AppBar(
-                backgroundColor: Colors.transparent,
+              appBar: AppBar(
+                backgroundColor: Colors.orange[700],
                 title: Image.asset(
-                  'assets/images/logo_white.png',
+                  'assets/images/logo.png',
                   height: 40,
                   width: 40,
                 ),
@@ -68,8 +46,8 @@ class MainScreenState extends State<MainScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Icon(Icons.airplanemode_active),
-                          Text(MadarLocalizations.of(context).trans('trip')),
+                          Icon(Icons.airplanemode_active, color: Colors.blue,),
+                          Text(MadarLocalizations.of(context).trans('trip'), style: TextStyle(color: Colors.blue),),
                         ],
                       ),
                     ),
@@ -119,6 +97,8 @@ class MainScreenState extends State<MainScreen> {
                   ),
                 ],
                 bottom: TabBar(
+                  labelColor: Theme.of(context).accentColor,
+                  unselectedLabelColor: Colors.white,
                   tabs: [
                     new Tab(
                       text: MadarLocalizations.of(context).trans('now'),
@@ -135,10 +115,6 @@ class MainScreenState extends State<MainScreen> {
                   ],
                 ),
               ),
-            ],
-          ),
-          preferredSize: Size.fromHeight(100.0),
-        ),
         body: DecoratedContainer(
           child: TabBarView(
             children: [

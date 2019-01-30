@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -83,6 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
         primaryColor: appColors.first,
         accentColor: appColors.last,
         primaryColorDark: Colors.red[700],
+
       ),
       routes: <String, WidgetBuilder>{
         '/': (BuildContext context) => new LandingPage(),

@@ -16,7 +16,6 @@ class Weather extends StatefulWidget {
 }
 
 class WeatherState extends State<Weather> with TickerProviderStateMixin {
-
   WeatherData data;
 
   @override
@@ -45,69 +44,68 @@ class WeatherState extends State<Weather> with TickerProviderStateMixin {
             image: DecorationImage(
               image: AssetImage(widget._image),
               fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(
-                  Colors.white.withOpacity(0.8), BlendMode.srcATop),
             ),
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
+          child: Container(
+              alignment: Alignment.bottomCenter,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: Colors.white.withOpacity(0.6),
+                  width: 3,
+                ),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Text(
-                    widget._title,
-                    style: TextStyle(
-                        fontSize: 28,
-                        color: Colors.black87,
-                        fontWeight: FontWeight.w800),
-                  ),
-                  Text(
-                    data.description,
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w800,
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.6),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              'ANTALYA',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 16,
+                                  color: Colors.orange[700]),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  data.description.split(' ').first,
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                Text(
+                                  '  ${(data.temp- 273.15).round()}˚',
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                        Image.network(data.icon, width: 40, height: 40,),
+                      ],
                     ),
                   ),
                 ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Image.network(data.icon),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16),
-                      child: Text(
-                        "${(data.temp - 273.15).round()}", // Because Kelvin -.-"
-                        textDirection: TextDirection.rtl,
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 48,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        bottom: 42,
-                        right: 8,
-                      ),
-                      child: Text(
-                        'o',
-                        style: TextStyle(fontWeight: FontWeight.w800),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
+              )),
         ),
       ),
     );
@@ -120,4 +118,65 @@ class WeatherState extends State<Weather> with TickerProviderStateMixin {
       });
     });
   }
+}
+
+_temp() {
+//  Column(
+//    crossAxisAlignment: CrossAxisAlignment.start,
+//    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//    children: <Widget>[
+//      Column(
+//        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//        crossAxisAlignment: CrossAxisAlignment.start,
+//        children: <Widget>[
+//          Text(
+//            widget._title,
+//            style: TextStyle(
+//                fontSize: 28,
+//                color: Colors.black87,
+//                fontWeight: FontWeight.w800),
+//          ),
+//          Text(
+//            data.description,
+//            style: TextStyle(
+//              color: Colors.grey,
+//              fontSize: 12,
+//              fontWeight: FontWeight.w800,
+//            ),
+//          ),
+//        ],
+//      ),
+//      Padding(
+//        padding: const EdgeInsets.only(top: 10.0),
+//        child: Row(
+//          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//          children: <Widget>[
+//            Image.network(data.icon),
+//            Padding(
+//              padding: const EdgeInsets.only(left: 16),
+//              child: Text(
+//                "${(data.temp - 273.15).round()}", // Because Kelvin -.-"
+//                textDirection: TextDirection.rtl,
+//                style: TextStyle(
+//                  color: Colors.grey,
+//                  fontSize: 48,
+//                  fontWeight: FontWeight.w800,
+//                ),
+//              ),
+//            ),
+//            Padding(
+//              padding: const EdgeInsets.only(
+//                bottom: 42,
+//                right: 8,
+//              ),
+//              child: Text(
+//                'o',
+//                style: TextStyle(fontWeight: FontWeight.w800),
+//              ),
+//            )
+//          ],
+//        ),
+//      ),
+//    ],
+//  )
 }

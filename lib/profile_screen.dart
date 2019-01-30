@@ -42,7 +42,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                 image: DecorationImage(
                   colorFilter: ColorFilter.mode(
                       Colors.white.withOpacity(0.3), BlendMode.dstATop),
-                  image: AssetImage('assets/images/istanbul.png'),
+                  image: AssetImage('assets/images/istanbul.jpg'),
                   fit: BoxFit.cover,
                 ),
                 gradient: LinearGradient(
