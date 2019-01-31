@@ -1,4 +1,5 @@
 import 'package:al_madar/NewsList.dart';
+import 'package:al_madar/madarLocalizer.dart';
 import 'package:al_madar/network.dart';
 import 'package:al_madar/network/session.dart';
 import 'package:al_madar/offersList.dart';
@@ -29,6 +30,11 @@ class OfferDetailsState extends State<OfferDetails> {
 
   @override
   Widget build(BuildContext context) {
+    String currencyCode =
+    MadarLocalizations.of(context).trans(widget.offer.currencyCode) == null
+        ? widget.offer.currencyCode
+        : MadarLocalizations.of(context).trans(widget.offer.currencyCode);
+
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -66,7 +72,7 @@ class OfferDetailsState extends State<OfferDetails> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     Text(
-                      "${widget.offer.period} Days",
+                      "${widget.offer.period} ${MadarLocalizations.of(context).trans('days')}",
                       style: TextStyle(
                         color: Colors.grey[400],
                         fontSize: 16,
@@ -74,7 +80,7 @@ class OfferDetailsState extends State<OfferDetails> {
                       ),
                     ),
                     Text(
-                      "${widget.offer.price} \$",
+                      "${widget.offer.price} " + currencyCode,
                       style: TextStyle(
                         color: Colors.grey[600],
                         fontWeight: FontWeight.w700,
