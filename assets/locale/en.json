@@ -46,7 +46,17 @@
   "5_stars_hotel":"5 Stars Hotel",
   "hotel_suite":"Hotel Suite",
   "trip_description":"Trip description",
-  "ex_family_trip":"Ex: Family trip"
+  "ex_family_trip":"Ex: Family trip",
+  "AED":"AED",
+  "KWD":"KWD",
+  "QAR":"QAR",
+  "OMR":"OMR",
+  "SAR":"SAR",
+  "USD":"$",
+  "EUR":"€",
+  "TRY":"₺",
+  "TL":"₺",
+  "BHD":"BHD"
 
 
 

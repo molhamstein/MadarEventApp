@@ -46,7 +46,17 @@
   "5_stars_hotel":"فندق ٥ نجوم",
   "hotel_suite":"جناح فندقي",
   "trip_description":"وصف الرحلة",
-  "ex_family_trip":"مثال: رحلة عائلية"
+  "ex_family_trip":"مثال: رحلة عائلية",
+  "AED":"د.إ",
+  "KWD":"د.ك",
+  "QAR":"ر.ق",
+  "OMR":"ر.ع",
+  "SAR":"ر.س",
+  "USD":"$",
+  "EUR":"€",
+  "TRY":"₺",
+  "TL":"₺",
+  "BHD":"د.ب"
 
 
 

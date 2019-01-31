@@ -1,3 +1,4 @@
+import 'package:al_madar/madarLocalizer.dart';
 import 'package:al_madar/network.dart';
 import 'package:al_madar/network/session.dart';
 import 'package:al_madar/offersList.dart';
@@ -25,6 +26,11 @@ class OfferWidgetState extends State<OfferWidget> {
 
   @override
   Widget build(BuildContext context) {
+    String currencyCode =
+        MadarLocalizations.of(context).trans(widget.offer.currencyCode) == null
+            ? widget.offer.currencyCode
+            : MadarLocalizations.of(context).trans(widget.offer.currencyCode);
+
     return Material(
       color: Colors.transparent,
       child: Container(
@@ -105,7 +111,7 @@ class OfferWidgetState extends State<OfferWidget> {
                           ),
                         ),
                         Text(
-                          "${widget.offer.price} \$",
+                          "${widget.offer.price} " + currencyCode,
                           style: TextStyle(
                             color: Colors.grey[600],
                             fontWeight: FontWeight.w700,
@@ -137,9 +143,7 @@ class OfferWidgetState extends State<OfferWidget> {
     );
   }
 
-
   setFavorite() {
-
     Session.getAccessToken().then((token) {
       print('token = ' + token);
       if (!widget.offer.favorite) {
@@ -150,8 +154,7 @@ class OfferWidgetState extends State<OfferWidget> {
             });
           }
         });
-      }
-      else {
+      } else {
         Network.removeOfferFavorite(widget.offer.id, token).then((removed) {
           if (removed) {
             setState(() {
@@ -161,9 +164,7 @@ class OfferWidgetState extends State<OfferWidget> {
         });
       }
     });
-
   }
-
 }
 
 class TicketClipper extends CustomClipper<Path> {

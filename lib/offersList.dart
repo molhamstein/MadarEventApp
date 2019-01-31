@@ -21,8 +21,9 @@ class Offer {
   int period;
   double price;
   bool favorite;
+  String currencyCode;
 
-  Offer(this.id, this.title, this.content, this.imageUrl, this.period, this.price, this.favorite);
+  Offer(this.id, this.title, this.content, this.imageUrl, this.period, this.price, this.favorite, this.currencyCode);
 
   factory Offer.fromJson(Map<String, dynamic> json) {
     return Offer(
@@ -33,6 +34,7 @@ class Offer {
       json['OfferPeriod'],
       json['OfferPrice'],
       json['Favorite'],
+      json['CurrencyCode'],
     );
   }
 
