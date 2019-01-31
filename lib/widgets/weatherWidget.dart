@@ -85,7 +85,7 @@ class WeatherState extends State<Weather> with TickerProviderStateMixin {
                                   data.description.split(' ').first,
                                   style: TextStyle(
                                     color: Colors.blue,
-                                    fontSize: 12,
+                                    fontSize: 11,
                                   ),
                                 ),
                                 Text(

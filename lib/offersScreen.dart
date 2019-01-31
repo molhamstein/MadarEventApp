@@ -27,13 +27,16 @@ class OffersScreenState extends State<OffersScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return ListView.builder(
-      key: new Key(randomString(20)), //new
-      itemBuilder: (BuildContext context, int index) {
-        return offers[index];
-      },
-      itemCount: offers.length,
-      padding: EdgeInsets.only(top: 8, bottom: 8),
+    return RefreshIndicator(
+      onRefresh: refresh,
+      child: ListView.builder(
+        key: new Key(randomString(20)), //new
+        itemBuilder: (BuildContext context, int index) {
+          return offers[index];
+        },
+        itemCount: offers.length,
+        padding: EdgeInsets.only(top: 8, bottom: 8),
+      ),
     );
   }
 
@@ -41,6 +44,36 @@ class OffersScreenState extends State<OffersScreen>
     print("get offfeeerrrssss");
     Session.getAccessToken().then((token) {
       Network.getOffers(token).then((offersList) {
+        setState(() {
+          offers.clear();
+          offers = offersList.offers.map((offer) {
+            return InkWell(
+              child: OfferWidget(
+                offer: offer,
+              ),
+              onTap: () async {
+               var result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => OfferDetails(
+                          offer: offer,
+                        ),
+                  ),
+                );
+
+                 getOffers();
+
+              },
+            );
+          }).toList();
+        });
+      });
+    });
+  }
+
+  Future<void> refresh() async {
+    await Session.getAccessToken().then((token) {
+       return Network.getOffers(token).then((offersList) {
         setState(() {
           offers.clear();
           offers = offersList.offers.map((offer) {

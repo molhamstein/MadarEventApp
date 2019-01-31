@@ -14,6 +14,8 @@ class NewsScreen extends StatefulWidget {
 class NewsScreenState extends State<NewsScreen>
     with AutomaticKeepAliveClientMixin<NewsScreen> {
   List<Widget> news = [];
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+  new GlobalKey<RefreshIndicatorState>();
 
   @override
   void initState() {
@@ -21,19 +23,25 @@ class NewsScreenState extends State<NewsScreen>
     super.initState();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return Material(
       color: Colors.transparent,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 8.0),
-        child: ListView.builder(
-          itemBuilder: (BuildContext context, int index) {
-            return news[index];
-          },
-          itemCount: news.length,
-          padding: EdgeInsets.only(top: 8, bottom: 8),
+      child: RefreshIndicator(
+        key: _refreshIndicatorKey,
+        onRefresh: refresh,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: ListView.builder(
+            itemBuilder: (BuildContext context, int index) {
+              return news[index];
+            },
+            itemCount: news.length,
+            padding: EdgeInsets.only(top: 8, bottom: 8),
+          ),
         ),
       ),
     );
@@ -41,6 +49,26 @@ class NewsScreenState extends State<NewsScreen>
 
   getNews() {
     Network.getNews().then((newsList) {
+      setState(() {
+        news = newsList.posts.map((post) {
+          return InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PostDetails(post: post),
+                ),
+              );
+            },
+            child: Ticket(post: post),
+          );
+        }).toList();
+      });
+    });
+  }
+
+  Future<void> refresh() {
+    return Network.getNews().then((newsList) {
       setState(() {
         news = newsList.posts.map((post) {
           return InkWell(
