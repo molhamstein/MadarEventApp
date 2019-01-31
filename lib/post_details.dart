@@ -13,6 +13,7 @@ class PostDetails extends StatelessWidget {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
+              backgroundColor: Theme.of(context).primaryColorDark,
               expandedHeight: 200.0,
               floating: false,
               pinned: true,

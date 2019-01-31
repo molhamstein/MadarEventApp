@@ -83,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
       theme: ThemeData(
         primaryColor: appColors.first,
         accentColor: appColors.last,
-        primaryColorDark: Colors.red[700],
+        primaryColorDark: Colors.orange[700],
 
       ),
       routes: <String, WidgetBuilder>{

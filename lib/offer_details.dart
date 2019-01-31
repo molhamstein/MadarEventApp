@@ -40,6 +40,7 @@ class OfferDetailsState extends State<OfferDetails> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
+              backgroundColor: Theme.of(context).primaryColorDark,
               actions: <Widget>[
                 IconButton(icon: Icon(icon), onPressed: setFavorite)
               ],

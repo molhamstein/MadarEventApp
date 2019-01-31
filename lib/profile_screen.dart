@@ -45,14 +45,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                   image: AssetImage('assets/images/istanbul.jpg'),
                   fit: BoxFit.cover,
                 ),
-                gradient: LinearGradient(
-                  colors: [
-                    Theme.of(context).primaryColor,
-                    Theme.of(context).accentColor
-                  ],
-                  begin: Alignment.bottomLeft,
-                  end: Alignment(0.8, 0.0),
-                ),
+                color: Theme.of(context).primaryColorDark,
               ),
             ),
             AppBar(
@@ -74,7 +67,6 @@ class ProfileScreenState extends State<ProfileScreen> {
                     }).toList();
                   },
                   onSelected: (title) {
-                    print(title);
                     if (title == "edit_profile") {
                       Navigator.push(
                         context,
