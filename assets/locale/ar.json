@@ -29,7 +29,25 @@
   "edit_profile" : "تعديل الملف الشخصي",
   "edit_password" : "تعديل كلمة المرور",
   "trip" : "رحلة",
-  "me" : "أنا"
+  "me" : "أنا",
+  "form_statement":"أخبرنا القليل عن رحلتك",
+  "form_sub_statement":"سنرسل لك خطة رحلتك خلال ٢٤ ساعة",
+  "arrival_date":"موعد الوصول",
+  "leaving_date":"تاريخ العودة",
+  "number_of_adults":"عدد البالغين",
+  "number_of_children":"عدد الاطفال",
+  "number_of_rooms":"عدد الغرف",
+  "tours":"الرحلة",
+  "pick_up_from_airport":"توصيل من المطار",
+  "pick_up_to_airport":"توصيل الى المطار",
+  "daily_tours":"رحلات يومية",
+  "accommodation_type":"نوع الاقامة",
+  "4_stars_hotel":"فندق ٤ نجوم",
+  "5_stars_hotel":"فندق ٥ نجوم",
+  "hotel_suite":"جناح فندقي",
+  "trip_description":"وصف الرحلة",
+  "ex_family_trip":"مثال: رحلة عائلية"
+
 
 
 }

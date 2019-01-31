@@ -69,7 +69,8 @@ class FormPageState extends State<FormPage> {
                           padding: EdgeInsets.all(12),
                           child: Center(
                             child: Text(
-                              'Please Tell us a little about your trip',
+                              MadarLocalizations.of(context)
+                                  .trans('form_statement'),
                               style: TextStyle(
                                 color: Theme.of(context).accentColor,
                                 fontSize: 16,
@@ -82,7 +83,8 @@ class FormPageState extends State<FormPage> {
                           padding: EdgeInsets.all(12),
                           child: Center(
                             child: Text(
-                              'We will send your trip plan in 24 business hours',
+                              MadarLocalizations.of(context)
+                                  .trans('form_sub_statement'),
                               style: TextStyle(
                                 color: Colors.grey,
                                 fontSize: 12,
@@ -343,7 +345,8 @@ class FormPageState extends State<FormPage> {
                   child: Row(
                     children: <Widget>[
                       new Text(
-                        'Number of Adults',
+                        MadarLocalizations.of(context)
+                            .trans('number_of_adults'),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).accentColor,
@@ -398,7 +401,7 @@ class FormPageState extends State<FormPage> {
                 child: new Padding(
                   padding: const EdgeInsets.only(left: 40.0, right: 40.0),
                   child: new Text(
-                    'Number of Children',
+                    MadarLocalizations.of(context).trans('number_of_children'),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).accentColor,
@@ -449,7 +452,7 @@ class FormPageState extends State<FormPage> {
                   child: Row(
                     children: <Widget>[
                       new Text(
-                        'Number of Rooms',
+                        MadarLocalizations.of(context).trans('number_of_rooms'),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).accentColor,
@@ -506,7 +509,7 @@ class FormPageState extends State<FormPage> {
                   child: Row(
                     children: <Widget>[
                       new Text(
-                        'Arrival Date',
+                        MadarLocalizations.of(context).trans('arrival_date'),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).accentColor,
@@ -571,7 +574,7 @@ class FormPageState extends State<FormPage> {
                   child: Row(
                     children: <Widget>[
                       new Text(
-                        'Leaving Date',
+                        MadarLocalizations.of(context).trans('leaving_date'),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).accentColor,
@@ -632,7 +635,7 @@ class FormPageState extends State<FormPage> {
           Row(
             children: <Widget>[
               Text(
-                'Tours',
+                MadarLocalizations.of(context).trans('tours'),
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).accentColor,
@@ -655,7 +658,9 @@ class FormPageState extends State<FormPage> {
                   });
                 },
               ),
-              Text('Pick up from Airport'),
+              Text(
+                MadarLocalizations.of(context).trans('pick_up_from_airport'),
+              ),
             ],
           ),
           Row(
@@ -668,7 +673,9 @@ class FormPageState extends State<FormPage> {
                   });
                 },
               ),
-              Text('Pick up to Airport'),
+              Text(
+                MadarLocalizations.of(context).trans('pick_up_to_airport'),
+              ),
             ],
           ),
           Row(
@@ -681,7 +688,9 @@ class FormPageState extends State<FormPage> {
                   });
                 },
               ),
-              Text('Daily tours'),
+              Text(
+                MadarLocalizations.of(context).trans('daily_tours'),
+              ),
             ],
           ),
         ],
@@ -698,7 +707,7 @@ class FormPageState extends State<FormPage> {
           Row(
             children: <Widget>[
               Text(
-                'Accommodation type',
+                MadarLocalizations.of(context).trans('accommodation_type'),
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).accentColor,
@@ -722,7 +731,9 @@ class FormPageState extends State<FormPage> {
                 },
                 groupValue: _radioValue,
               ),
-              Text('4 Stars Hotel')
+              Text(
+                MadarLocalizations.of(context).trans('4_stars_hotel'),
+              )
             ],
           ),
           Row(
@@ -736,7 +747,9 @@ class FormPageState extends State<FormPage> {
                 },
                 groupValue: _radioValue,
               ),
-              Text('5 Stars Hotel')
+              Text(
+                MadarLocalizations.of(context).trans('5_stars_hotel'),
+              )
             ],
           ),
           Row(
@@ -750,7 +763,9 @@ class FormPageState extends State<FormPage> {
                 },
                 groupValue: _radioValue,
               ),
-              Text('Hotel Suite')
+              Text(
+                MadarLocalizations.of(context).trans('hotel_suite'),
+              )
             ],
           ),
         ],
@@ -771,7 +786,8 @@ class FormPageState extends State<FormPage> {
                   child: Row(
                     children: <Widget>[
                       new Text(
-                        'Trip description',
+                        MadarLocalizations.of(context)
+                            .trans('trip_description'),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).accentColor,
@@ -802,7 +818,8 @@ class FormPageState extends State<FormPage> {
                     controller: detailsController,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
-                      hintText: 'Ex: Family trip',
+                      hintText: MadarLocalizations.of(context)
+                          .trans('ex_family_trip'),
                       hintStyle: TextStyle(color: Colors.grey),
                     ),
                   ),

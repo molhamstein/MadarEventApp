@@ -29,7 +29,25 @@
   "edit_profile" : "Edit Profile",
   "edit_password" : "Edit Password",
   "trip" : "Trip",
-  "me" : "Me"
+  "me" : "Me",
+  "form_statement":"Please Tell us a little about your trip",
+  "form_sub_statement":"We will send your trip plan in 24 hours",
+  "arrival_date":"Arrival Date",
+  "leaving_date":"Leaving Date",
+  "number_of_adults":"Number of adults",
+  "number_of_children":"Number of children",
+  "number_of_rooms":"Number of rooms",
+  "tours":"Tours",
+  "pick_up_from_airport":"Pick up from Airport",
+  "pick_up_to_airport":"Pick up to Airport",
+  "daily_tours":"Daily tours",
+  "accommodation_type":"Accommodation type",
+  "4_stars_hotel":"4 Stars Hotel",
+  "5_stars_hotel":"5 Stars Hotel",
+  "hotel_suite":"Hotel Suite",
+  "trip_description":"Trip description",
+  "ex_family_trip":"Ex: Family trip"
+
 
 
 }
