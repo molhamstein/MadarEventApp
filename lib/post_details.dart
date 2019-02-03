@@ -1,4 +1,5 @@
 import 'package:al_madar/NewsList.dart';
+import 'package:al_madar/widgets/full_screen_picture.dart';
 import 'package:flutter/material.dart';
 
 class PostDetails extends StatelessWidget {
@@ -19,20 +20,32 @@ class PostDetails extends StatelessWidget {
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
                 centerTitle: true,
-                title: Text(post.title,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.0,
-                    )),
-                background: Image.network(
-                  post.imageUrl,
-                  fit: BoxFit.cover,
+                title: Container(
+                  width: MediaQuery.of(context).size.width / 1.5,
+                  child: Text(post.title,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                      )),
+                ),
+                background: GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => FullScreenPicture(imageUrl: post.imageUrl,)));
+                  },
+                  child: Hero(
+                    tag: FullScreenPicture.tag,
+                    child: Image.network(
+                      post.imageUrl,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
               ),
             ),
           ];
         },
-        body: Center(
+        body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(post.content),

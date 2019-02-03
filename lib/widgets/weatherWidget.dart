@@ -72,7 +72,7 @@ class WeatherState extends State<Weather> with TickerProviderStateMixin {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              'ANTALYA',
+                              widget._title,
                               style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   fontSize: 16,
@@ -84,16 +84,16 @@ class WeatherState extends State<Weather> with TickerProviderStateMixin {
                                 Text(
                                   data.description.split(' ').first,
                                   style: TextStyle(
-                                    color: Colors.blue,
+                                    color: Colors.black87,
                                     fontSize: 11,
                                   ),
                                 ),
                                 Text(
                                   '  ${(data.temp- 273.15).round()}˚',
                                   style: TextStyle(
-                                    color: Colors.blue,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 12,
+                                    color: Colors.black87,
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 13,
                                   ),
                                 ),
                               ],

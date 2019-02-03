@@ -3,6 +3,7 @@ import 'package:al_madar/madarLocalizer.dart';
 import 'package:al_madar/network.dart';
 import 'package:al_madar/network/session.dart';
 import 'package:al_madar/offersList.dart';
+import 'package:al_madar/widgets/full_screen_picture.dart';
 import 'package:flutter/material.dart';
 
 class OfferDetails extends StatefulWidget {
@@ -17,7 +18,6 @@ class OfferDetails extends StatefulWidget {
 }
 
 class OfferDetailsState extends State<OfferDetails> {
-
   IconData icon;
   bool isFav;
 
@@ -31,9 +31,9 @@ class OfferDetailsState extends State<OfferDetails> {
   @override
   Widget build(BuildContext context) {
     String currencyCode =
-    MadarLocalizations.of(context).trans(widget.offer.currencyCode) == null
-        ? widget.offer.currencyCode
-        : MadarLocalizations.of(context).trans(widget.offer.currencyCode);
+        MadarLocalizations.of(context).trans(widget.offer.currencyCode) == null
+            ? widget.offer.currencyCode
+            : MadarLocalizations.of(context).trans(widget.offer.currencyCode);
 
     return Scaffold(
       body: NestedScrollView(
@@ -54,16 +54,31 @@ class OfferDetailsState extends State<OfferDetails> {
                       color: Colors.white,
                       fontSize: 16.0,
                     )),
-                background: Image.network(
-                  widget.offer.imageUrl,
-                  fit: BoxFit.cover,
+                background: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => FullScreenPicture(
+                              imageUrl: widget.offer.imageUrl,
+                            )));
+                  },
+                  child: Hero(
+                    tag: FullScreenPicture.tag,
+                    child: Image.network(
+                      widget.offer.imageUrl,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
               ),
             ),
           ];
         },
         body: Padding(
-          padding: const EdgeInsets.only(top: 60.0, left: 16, right: 16,),
+          padding: const EdgeInsets.only(
+            top: 60.0,
+            left: 16,
+            right: 16,
+          ),
           child: Column(
             children: <Widget>[
               Padding(
@@ -108,7 +123,6 @@ class OfferDetailsState extends State<OfferDetails> {
   }
 
   setFavorite() {
-
     Session.getAccessToken().then((token) {
       print('token = ' + token);
       if (!isFav) {
@@ -120,8 +134,7 @@ class OfferDetailsState extends State<OfferDetails> {
             });
           }
         });
-      }
-      else {
+      } else {
         Network.removeOfferFavorite(widget.offer.id, token).then((removed) {
           if (removed) {
             setState(() {
@@ -132,7 +145,5 @@ class OfferDetailsState extends State<OfferDetails> {
         });
       }
     });
-
   }
-
 }
