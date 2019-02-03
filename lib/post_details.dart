@@ -1,6 +1,7 @@
 import 'package:al_madar/NewsList.dart';
 import 'package:al_madar/widgets/full_screen_picture.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html_view/flutter_html_view.dart';
 
 class PostDetails extends StatelessWidget {
   final Post post;
@@ -45,11 +46,8 @@ class PostDetails extends StatelessWidget {
             ),
           ];
         },
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(post.content),
-          ),
+        body: HtmlView(
+          data: post.content,
         ),
       ),
     );

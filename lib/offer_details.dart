@@ -5,6 +5,7 @@ import 'package:al_madar/network/session.dart';
 import 'package:al_madar/offersList.dart';
 import 'package:al_madar/widgets/full_screen_picture.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html_view/flutter_html_view.dart';
 
 class OfferDetails extends StatefulWidget {
   final Offer offer;
@@ -49,17 +50,24 @@ class OfferDetailsState extends State<OfferDetails> {
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
                 centerTitle: true,
-                title: Text(widget.offer.title,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.0,
-                    )),
+                title: Container(
+                  width: MediaQuery.of(context).size.width / 1.5,
+                  child: Text(widget.offer.title,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                      )),
+                ),
                 background: GestureDetector(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
                         builder: (context) => FullScreenPicture(
                               imageUrl: widget.offer.imageUrl,
-                            )));
+                            ),
+                      ),
+                    );
                   },
                   child: Hero(
                     tag: FullScreenPicture.tag,
@@ -75,46 +83,44 @@ class OfferDetailsState extends State<OfferDetails> {
         },
         body: Padding(
           padding: const EdgeInsets.only(
-            top: 60.0,
+            top: 16.0,
             left: 16,
             right: 16,
           ),
-          child: Column(
+          child: Stack(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 4.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    Text(
-                      "${widget.offer.period} ${MadarLocalizations.of(context).trans('days')}",
-                      style: TextStyle(
-                        color: Colors.grey[400],
-                        fontSize: 16,
-                        fontWeight: FontWeight.w800,
+              Column(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      Text(
+                        "${widget.offer.period} ${MadarLocalizations.of(context).trans('days')}",
+                        style: TextStyle(
+                          color: Colors.grey[400],
+                          fontSize: 16,
+                          fontWeight: FontWeight.w800,
+                        ),
                       ),
-                    ),
-                    Text(
-                      "${widget.offer.price} " + currencyCode,
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontWeight: FontWeight.w700,
-                        fontSize: 32,
+                      Text(
+                        "${widget.offer.price} " + currencyCode,
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontWeight: FontWeight.w700,
+                          fontSize: 32,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(widget.offer.content),
+                    ],
                   ),
-                ),
+                ],
               ),
+              Padding(
+                padding: const EdgeInsets.only(top: 40.0),
+                child: HtmlView(
+                  data: widget.offer.content,
+                ),
+              )
             ],
           ),
         ),

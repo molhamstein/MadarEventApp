@@ -3,13 +3,13 @@ import 'dart:ui';
 
 import 'package:al_madar/NewsList.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html_view/flutter_html_view.dart';
 import 'package:intl/intl.dart';
 
 class Ticket extends StatefulWidget {
   final Post post;
 
   const Ticket({Key key, this.post}) : super(key: key);
-
 
   @override
   TicketState createState() {
@@ -50,8 +50,8 @@ class TicketState extends State<Ticket> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(
-                  top: 16, bottom: 24, left: 24, right: 24),
+              padding:
+                  EdgeInsets.only(top: 16, bottom: 24, left: 24, right: 24),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,10 +63,13 @@ class TicketState extends State<Ticket> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
-                        Text(getDate(), style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 12,
-                            color: Colors.grey[600]),)
+                        Text(
+                          getDate(),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 12,
+                              color: Colors.grey[600]),
+                        )
                       ],
                     ),
                   ),
@@ -79,18 +82,24 @@ class TicketState extends State<Ticket> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 16),
-                    child: Text(
-                      widget.post.content,
-                      maxLines: 6,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: Colors.grey[800],
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Stack(
+                        children: <Widget>[
+                          Container(
+                            height: 200,
+                            child: HtmlView(
+                              data: widget.post.content,
+                            ),
+                          ),
+                          SingleChildScrollView(
+                            physics: NeverScrollableScrollPhysics(),
+                            child: Container(
+                              height: 200,
+                              width: 200,
+                            ),
+                          ),
+                        ],
+                      )),
                 ],
               ),
             ),
@@ -104,7 +113,6 @@ class TicketState extends State<Ticket> {
     var formatter = new DateFormat('yyyy-MM-dd');
     return formatter.format(DateTime.parse(widget.post.date));
   }
-
 }
 
 class TicketClipper extends CustomClipper<Path> {
