@@ -29,19 +29,25 @@ class OffersScreenState extends State<OffersScreen>
     super.build(context);
     return RefreshIndicator(
       onRefresh: refresh,
-      child: ListView.builder(
-        key: new Key(randomString(20)), //new
-        itemBuilder: (BuildContext context, int index) {
-          return offers[index];
-        },
-        itemCount: offers.length,
-        padding: EdgeInsets.only(top: 8, bottom: 8),
-      ),
+      child: offers.isNotEmpty
+          ? ListView.builder(
+              key: new Key(randomString(20)), //new
+              itemBuilder: (BuildContext context, int index) {
+                return offers[index];
+              },
+              itemCount: offers.length,
+              padding: EdgeInsets.only(top: 8, bottom: 8),
+            )
+          : Container(
+              height: 150,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
     );
   }
 
   getOffers() {
-    print("get offfeeerrrssss");
     Session.getAccessToken().then((token) {
       Network.getOffers(token).then((offersList) {
         setState(() {
@@ -52,7 +58,7 @@ class OffersScreenState extends State<OffersScreen>
                 offer: offer,
               ),
               onTap: () async {
-               var result = await Navigator.push(
+                var result = await Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => OfferDetails(
@@ -61,8 +67,7 @@ class OffersScreenState extends State<OffersScreen>
                   ),
                 );
 
-                 getOffers();
-
+                getOffers();
               },
             );
           }).toList();
@@ -73,7 +78,7 @@ class OffersScreenState extends State<OffersScreen>
 
   Future<void> refresh() async {
     await Session.getAccessToken().then((token) {
-       return Network.getOffers(token).then((offersList) {
+      return Network.getOffers(token).then((offersList) {
         setState(() {
           offers.clear();
           offers = offersList.offers.map((offer) {
@@ -82,7 +87,7 @@ class OffersScreenState extends State<OffersScreen>
                 offer: offer,
               ),
               onTap: () async {
-               var result = await Navigator.push(
+                var result = await Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => OfferDetails(
@@ -91,8 +96,7 @@ class OffersScreenState extends State<OffersScreen>
                   ),
                 );
 
-                 getOffers();
-
+                getOffers();
               },
             );
           }).toList();
@@ -103,12 +107,9 @@ class OffersScreenState extends State<OffersScreen>
 
   String randomString(int length) {
     var rand = new Random();
-    var codeUnits = new List.generate(
-        length,
-            (index){
-          return rand.nextInt(33)+89;
-        }
-    );
+    var codeUnits = new List.generate(length, (index) {
+      return rand.nextInt(33) + 89;
+    });
     return new String.fromCharCodes(codeUnits);
   }
 

@@ -1,3 +1,4 @@
+import 'package:al_madar/NewsList.dart';
 import 'package:al_madar/decorated_container.dart';
 import 'package:al_madar/network.dart';
 import 'package:al_madar/post_details.dart';
@@ -30,19 +31,32 @@ class NewsScreenState extends State<NewsScreen>
     super.build(context);
     return Material(
       color: Colors.transparent,
-      child: RefreshIndicator(
-        key: _refreshIndicatorKey,
-        onRefresh: refresh,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: ListView.builder(
-            itemBuilder: (BuildContext context, int index) {
-              return news[index];
-            },
-            itemCount: news.length,
-            padding: EdgeInsets.only(top: 8, bottom: 8),
-          ),
-        ),
+      child: FutureBuilder<NewsList>(
+        future: Network.getNews(),
+        builder: (context, snapshot){
+          if(snapshot.hasData) {
+            return RefreshIndicator(
+              key: _refreshIndicatorKey,
+              onRefresh: refresh,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: ListView.builder(
+                  itemBuilder: (BuildContext context, int index) {
+                    return news[index];
+                  },
+                  itemCount: news.length,
+                  padding: EdgeInsets.only(top: 8, bottom: 8),
+                ),
+              ),
+            );
+          }
+          return Container(
+            height: 150,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        },
       ),
     );
   }

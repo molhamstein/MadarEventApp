@@ -18,7 +18,7 @@ class Offer {
   String title;
   String content;
   String imageUrl;
-  int period;
+  String period;
   double price;
   bool favorite;
   String currencyCode;
@@ -31,7 +31,7 @@ class Offer {
       json['OffersTitle'],
       json['OffersContent'],
       json['OffersImage'],
-      json['OfferPeriod'],
+      json['OfferPeriodText'] == null ? "" : json['OfferPeriodText'],
       json['OfferPrice'],
       json['Favorite'],
       json['CurrencyCode'],

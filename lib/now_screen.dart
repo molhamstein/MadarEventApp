@@ -1,4 +1,5 @@
 import 'package:al_madar/decorated_container.dart';
+import 'package:al_madar/exchangeList.dart';
 import 'package:al_madar/madarLocalizer.dart';
 import 'package:al_madar/network.dart';
 import 'package:al_madar/widgets/exchange.dart';
@@ -20,17 +21,14 @@ class NowScreenState extends State<NowScreen>
 
   @override
   void initState() {
-    getRates();
+//    getRates();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    if (MadarLocalizations
-        .of(context)
-        .locale
-        .languageCode == 'ar') {
+    if (MadarLocalizations.of(context).locale.languageCode == 'ar') {
       rightPadding = 32;
       leftPadding = 0;
     }
@@ -38,7 +36,6 @@ class NowScreenState extends State<NowScreen>
       color: Colors.transparent,
       child: RefreshIndicator(
         onRefresh: refresh,
-
         child: SingleChildScrollView(
           physics: AlwaysScrollableScrollPhysics(),
           child: Column(
@@ -50,21 +47,26 @@ class NowScreenState extends State<NowScreen>
                 crossAxisCount: 2,
                 mainAxisSpacing: 16,
                 crossAxisSpacing: 16,
-                padding: EdgeInsets.only(right: rightPadding,
+                padding: EdgeInsets.only(
+                    right: rightPadding,
                     top: 16,
                     bottom: 16,
                     left: leftPadding),
                 children: <Widget>[
-                  Weather('Istanbul',
+                  Weather(
+                      'Istanbul',
                       'http://api.openweathermap.org/data/2.5/weather?q=Istanbul,tr&APPID=d9f1f0a14efb6a52c3c76bca2bb41c10',
                       'assets/images/istanbul.png'),
-                  Weather('Izmir',
+                  Weather(
+                      'Izmir',
                       'http://api.openweathermap.org/data/2.5/weather?APPID=d9f1f0a14efb6a52c3c76bca2bb41c10&q=Izmir,tr',
                       'assets/images/izmir.jpg'),
-                  Weather('Ankara',
+                  Weather(
+                      'Ankara',
                       'http://api.openweathermap.org/data/2.5/weather?q=Ankara,tr&APPID=d9f1f0a14efb6a52c3c76bca2bb41c10',
                       'assets/images/ankara.jpg'),
-                  Weather('Bursa',
+                  Weather(
+                      'Bursa',
                       'http://api.openweathermap.org/data/2.5/weather?APPID=d9f1f0a14efb6a52c3c76bca2bb41c10&q=Bursa,tr',
                       'assets/images/bursa.jpg'),
                 ],
@@ -75,22 +77,36 @@ class NowScreenState extends State<NowScreen>
                     MadarLocalizations.of(context).trans('exchange_rate_text'),
                     style: TextStyle(fontWeight: FontWeight.w800)),
               ),
-              Container(
-                color: Colors.transparent,
-                height: 150,
-                child: ListView(
-                  shrinkWrap: true,
-                  children: exchangeWidgets,
-                  scrollDirection: Axis.horizontal,
-                ),
-              ),
+              FutureBuilder<ExchangeList>(
+                future: Network.getExchangeRates(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Container(
+                      color: Colors.transparent,
+                      height: 150,
+                      child: ListView(
+                        shrinkWrap: true,
+                        children: snapshot.data.data
+                            .map((rate) => Exchange(data: rate))
+                            .toList(),
+                        scrollDirection: Axis.horizontal,
+                      ),
+                    );
+                  }
+                  return Container(
+                    height: 150,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                },
+              )
             ],
           ),
         ),
       ),
     );
   }
-
 
   getRates() {
     Network.getExchangeRates().then((rates) {
