@@ -1,9 +1,12 @@
+import 'dart:ui';
+
 import 'package:al_madar/NewsList.dart';
 import 'package:al_madar/madarLocalizer.dart';
 import 'package:al_madar/network.dart';
 import 'package:al_madar/network/session.dart';
 import 'package:al_madar/offersList.dart';
 import 'package:al_madar/widgets/full_screen_picture.dart';
+import 'package:al_madar/widgets/under_shadow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html_view/flutter_html_view.dart';
 
@@ -43,7 +46,12 @@ class OfferDetailsState extends State<OfferDetails> {
             SliverAppBar(
               backgroundColor: Theme.of(context).primaryColorDark,
               actions: <Widget>[
-                IconButton(icon: Icon(icon), onPressed: setFavorite)
+                IconButton(
+                  icon: Icon(
+                    icon,
+                  ),
+                  onPressed: setFavorite,
+                ),
               ],
               expandedHeight: 200.0,
               floating: false,
@@ -70,12 +78,27 @@ class OfferDetailsState extends State<OfferDetails> {
                     );
                   },
                   child: Hero(
-                    tag: FullScreenPicture.tag,
-                    child: Image.network(
-                      widget.offer.imageUrl,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                      tag: FullScreenPicture.tag,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: <Widget>[
+                          Image.network(
+                            widget.offer.imageUrl,
+                            fit: BoxFit.cover,
+                          ),
+                          Container(
+                            height: 60,
+                            decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    colors: [
+                                  Colors.black26,
+                                  Colors.transparent,
+                                ],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter)),
+                          ),
+                        ],
+                      )),
                 ),
               ),
             ),
