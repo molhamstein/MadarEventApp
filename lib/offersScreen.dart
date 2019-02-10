@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:al_madar/decorated_container.dart';
 import 'package:al_madar/network.dart';
 import 'package:al_madar/network/session.dart';
 import 'package:al_madar/offer_details.dart';

@@ -1,4 +1,3 @@
-import 'package:al_madar/decorated_container.dart';
 import 'package:al_madar/exchangeList.dart';
 import 'package:al_madar/madarLocalizer.dart';
 import 'package:al_madar/network.dart';
