@@ -3,6 +3,7 @@ import 'package:al_madar/network.dart';
 import 'package:al_madar/network/session.dart';
 import 'package:al_madar/offersList.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html_view/flutter_html_view.dart';
 
 class OfferWidget extends StatefulWidget {
   final Offer offer;
@@ -27,9 +28,9 @@ class OfferWidgetState extends State<OfferWidget> {
   @override
   Widget build(BuildContext context) {
     String currencyCode =
-        MadarLocalizations.of(context).trans(widget.offer.currencyCode) == null
-            ? widget.offer.currencyCode
-            : MadarLocalizations.of(context).trans(widget.offer.currencyCode);
+    MadarLocalizations.of(context).trans(widget.offer.currencyCode) == null
+        ? widget.offer.currencyCode
+        : MadarLocalizations.of(context).trans(widget.offer.currencyCode);
 
     return Material(
       color: Colors.transparent,
@@ -70,25 +71,23 @@ class OfferWidgetState extends State<OfferWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Flexible(
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 16),
-                          child: Text(
-                            widget.offer.title,
-                            style: TextStyle(
-                              color: Colors.grey[800],
-                              fontSize: 24,
-                              fontWeight: FontWeight.w900,
-                            ),
+                        child: Text(
+                          widget.offer.title,
+                          style: TextStyle(
+                            color: Colors.grey[800],
+                            fontSize: 24,
+                            fontWeight: FontWeight.w900,
                           ),
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.all(8.0),
                         child: Transform.rotate(
                           angle: 0.34,
                           child: IconButton(
                             icon: Icon(icon),
-                            color: Theme.of(context).primaryColor,
+                            color: Theme
+                                .of(context)
+                                .primaryColor,
                             iconSize: 32,
                             onPressed: setFavorite,
                           ),
@@ -121,19 +120,28 @@ class OfferWidgetState extends State<OfferWidget> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16),
-                    child: Text(
-                      widget.offer.content,
-                      maxLines: 6,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: Colors.grey[700],
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                  Stack(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: Container(
+                          height: 120,
+                          child: HtmlView(
+                            data: widget.offer.content,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
+                      ListView(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        children: <Widget>[
+                          Container(
+                            height: 130,
+                          )
+                        ],
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
