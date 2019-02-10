@@ -1,6 +1,7 @@
 import 'package:al_madar/NewsList.dart';
 import 'package:al_madar/decorated_container.dart';
 import 'package:al_madar/network.dart';
+import 'package:al_madar/network/session.dart';
 import 'package:al_madar/post_details.dart';
 import 'package:al_madar/widgets/Ticket.dart';
 import 'package:flutter/material.dart';
@@ -31,23 +32,46 @@ class NewsScreenState extends State<NewsScreen>
     super.build(context);
     return Material(
       color: Colors.transparent,
-      child: FutureBuilder<NewsList>(
-        future: Network.getNews(),
-        builder: (context, snapshot){
-          if(snapshot.hasData) {
-            return RefreshIndicator(
-              key: _refreshIndicatorKey,
-              onRefresh: refresh,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: ListView.builder(
-                  itemBuilder: (BuildContext context, int index) {
-                    return news[index];
-                  },
-                  itemCount: news.length,
-                  padding: EdgeInsets.only(top: 8, bottom: 8),
-                ),
-              ),
+      child: FutureBuilder<String>(
+        future: Session.getAccessToken(),
+        builder: (context, tokenSnapshot) {
+          if(tokenSnapshot.hasData) {
+            return FutureBuilder<NewsList>(
+              future: Network.getNews(tokenSnapshot.data),
+              builder: (context, snapshot){
+                if(snapshot.hasData) {
+                  return RefreshIndicator(
+                    key: _refreshIndicatorKey,
+                    onRefresh: refresh,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: ListView.builder(
+                        itemBuilder: (BuildContext context, int index) {
+                          return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PostDetails(post: snapshot.data.posts[index]),
+                                ),
+                              );
+                            },
+                            child: Ticket(post: snapshot.data.posts[index]),
+                          );
+                        },
+                        itemCount: snapshot.data.posts.length,
+                        padding: EdgeInsets.only(top: 8, bottom: 8),
+                      ),
+                    ),
+                  );
+                }
+                return Container(
+                  height: 150,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              },
             );
           }
           return Container(
@@ -61,42 +85,31 @@ class NewsScreenState extends State<NewsScreen>
     );
   }
 
-  getNews() {
-    Network.getNews().then((newsList) {
-      setState(() {
-        news = newsList.posts.map((post) {
-          return InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PostDetails(post: post),
-                ),
-              );
-            },
-            child: Ticket(post: post),
-          );
-        }).toList();
-      });
+  Future<NewsList> getNews() {
+    Session.getAccessToken().then((token) {
+      return Network.getNews(token);
     });
+
   }
 
   Future<void> refresh() {
-    return Network.getNews().then((newsList) {
-      setState(() {
-        news = newsList.posts.map((post) {
-          return InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PostDetails(post: post),
-                ),
-              );
-            },
-            child: Ticket(post: post),
-          );
-        }).toList();
+    return Session.getAccessToken().then((token) {
+      Network.getNews(token).then((newsList) {
+        setState(() {
+          news = newsList.posts.map((post) {
+            return InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PostDetails(post: post),
+                  ),
+                );
+              },
+              child: Ticket(post: post),
+            );
+          }).toList();
+        });
       });
     });
   }

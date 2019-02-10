@@ -168,10 +168,10 @@ class Network {
     }
   }
 
-  static Future<NewsList> getNews() async {
+  static Future<NewsList> getNews(String authToken) async {
     var body = json.encode({
       "APIKEY": "SD<DJF<JDJD<",
-      "AuthToken": "e9f9808e-e742-4bb2-a2b0-fd2a07d50aec",
+      "AuthToken": authToken,
     });
     final response = await http.post(
         'https://almadar.azurewebsites.net/Services/NewsManagement/NewsAPI/GetNews',
@@ -180,7 +180,7 @@ class Network {
     if (response.statusCode == 200) {
       return NewsList.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Failed to load');
+      throw json.decode(response.body);
     }
   }
 
