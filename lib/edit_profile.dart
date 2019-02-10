@@ -44,6 +44,7 @@ class EditProfileState extends State<EditProfile> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        iconTheme: IconThemeData(color: Colors.black87),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(bottom: 16),
@@ -372,7 +373,7 @@ class EditProfileState extends State<EditProfile> {
                               selectedCountry = country;
                             });
                           },
-                          value: selectedCountry,
+                          value: selectedCountry.id == 0 ? countries.first : selectedCountry,
                           isDense: true,
                         ),
                       ),
@@ -541,8 +542,11 @@ class EditProfileState extends State<EditProfile> {
     AuthProvider.getCountries().then((countryList) {
       setState(() {
         countries = countryList.countries;
-        print(countryList.countries.length);
-        selectedCountry = countries.where((country) => country.id == selectedCountry.id).first;
+        print('countries = ' + countries.length.toString());
+        print('selectedCountry id = ' + selectedCountry.id.toString());
+        if (selectedCountry.id != null && selectedCountry.id != 0) {
+          selectedCountry = countries.where((country) => country.id == selectedCountry.id).first;
+        }
         displayNameController.text = widget.user.displayName;
         phoneController.text = widget.user.phone;
         emailController.text = widget.user.email;
