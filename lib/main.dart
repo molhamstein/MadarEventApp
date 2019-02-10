@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Al Madar Holidays',
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
