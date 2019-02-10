@@ -515,7 +515,7 @@ class EditProfileState extends State<EditProfile> {
                               new Expanded(
                                 child: Text(
                                   MadarLocalizations.of(context)
-                                      .trans('submit'),
+                                      .trans('update'),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: Colors.white,
