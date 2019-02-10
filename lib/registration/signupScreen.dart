@@ -394,6 +394,7 @@ class SignUpScreenState extends State<SignUpScreen> {
           passwordController.text).then((user) {
             Session.setUser(user);
             authBloc.stopLoad();
+            Navigator.pushReplacementNamed(context, '/mainScreen');
           }).catchError((e){
         showSnackBar(e['Error']['Message']);
         authBloc.stopLoad();
