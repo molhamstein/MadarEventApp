@@ -117,7 +117,7 @@ class OfferDetailsState extends State<OfferDetails> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       Text(
-                        "${widget.offer.period} ${MadarLocalizations.of(context).trans('days')}",
+                        "${widget.offer.period}",
                         style: TextStyle(
                           color: Colors.grey[400],
                           fontSize: 16,
