@@ -97,25 +97,36 @@ class OfferWidgetState extends State<OfferWidget> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 4.0),
-                    child: Row(
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
-                        Text(
-                          widget.offer.period,
-                          style: TextStyle(
-                            color: Colors.grey[400],
-                            fontSize: 16,
-                            fontWeight: FontWeight.w800,
-                          ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              widget.offer.period,
+                              style: TextStyle(
+                                color: Colors.grey[400],
+                                fontSize: 16,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                          ],
                         ),
-                        Text(
-                          "${widget.offer.price} " + currencyCode,
-                          style: TextStyle(
-                            color: Colors.grey[600],
-                            fontWeight: FontWeight.w700,
-                            fontSize: 32,
-                          ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Text(
+                              "${widget.offer.price} " + currencyCode,
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                                fontWeight: FontWeight.w700,
+                                fontSize: 32,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
