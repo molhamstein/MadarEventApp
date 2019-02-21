@@ -877,9 +877,12 @@ class FormPageState extends State<FormPage> {
           .then((nil) {
         setState(() {
           _isLoading = false;
+          Future.delayed(Duration(seconds: 2)).then((_){
+            Navigator.of(context).pop(true);
+          });
+          showSnackBar(MadarLocalizations.of(context).trans('form_submitted'));
         });
-        showSnackBar('Submitted!!');
-        Navigator.of(context).pop();
+
       });
     });
   }
