@@ -1,6 +1,7 @@
 import 'package:al_madar/User.dart';
 import 'package:al_madar/bloc/auth_bloc.dart';
 import 'package:al_madar/madarLocalizer.dart';
+import 'package:al_madar/main.dart';
 import 'package:al_madar/network.dart';
 import 'package:al_madar/network/session.dart';
 import 'package:flutter/material.dart';
@@ -394,7 +395,8 @@ class SignUpScreenState extends State<SignUpScreen> {
           passwordController.text).then((user) {
             Session.setUser(user);
             authBloc.stopLoad();
-            Navigator.pushReplacementNamed(context, '/mainScreen');
+            loggedIn = true;
+            Navigator.of(context).pop();
           }).catchError((e){
         showSnackBar(e['Error']['Message']);
         authBloc.stopLoad();

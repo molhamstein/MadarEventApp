@@ -2,6 +2,7 @@ import 'package:al_madar/User.dart';
 import 'package:al_madar/bloc/auth_bloc.dart';
 import 'package:al_madar/icons/social_icons_icons.dart';
 import 'package:al_madar/madarLocalizer.dart';
+import 'package:al_madar/main.dart';
 import 'package:al_madar/network.dart';
 import 'package:al_madar/network/session.dart';
 import 'package:al_madar/registration/step2SignUpScreen.dart';
@@ -429,9 +430,9 @@ class LoginScreenState extends State<LoginScreen> {
                             )));
               });
             } else {
-              print(json['LoggedInUser']);
               Session.setUser(User.fromJson(json['LoggedInUser'])).then((non) {
-                Navigator.pushReplacementNamed(context, '/mainScreen');
+                Navigator.of(context).pop();
+                loggedIn = true;
               });
             }
           });
@@ -464,14 +465,8 @@ class LoginScreenState extends State<LoginScreen> {
                   account.displayName, account.email, account.id)
               .then((non) {
             authBloc.stopLoad();
-            Navigator.pushReplacement(
-              context,
-              new MaterialPageRoute(
-                builder: (context) => new Step2SignUpScreen(
-                      showPhoneTextFiled: true,
-                    ),
-              ),
-            );
+            loggedIn = true;
+            Navigator.of(context).pop();
           });
         } else {
           Session.setUser(User.fromJson(json['LoggedInUser'])).then((non) {
@@ -538,7 +533,8 @@ class LoginScreenState extends State<LoginScreen> {
     Network.login(phoneController.text, passwordController.text).then((user) {
       authBloc.stopLoad();
       Session.setUser(user);
-      Navigator.pushReplacementNamed(context, '/mainScreen');
+      loggedIn = true;
+      Navigator.of(context).pop();
     }).catchError((e) {
       authBloc.stopLoad();
       showSnackBar(e['Error']['Message']);
