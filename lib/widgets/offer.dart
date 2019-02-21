@@ -92,7 +92,7 @@ class OfferWidgetState extends State<OfferWidget> {
                             onPressed: setFavorite,
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                   Padding(

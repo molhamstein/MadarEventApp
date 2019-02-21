@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter\_localizations/flutter\_localizations.dart';
 
 void main() => runApp(MyApp());
+bool loggedIn;
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -126,13 +127,18 @@ class LandingPageState extends State<LandingPage> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data) {
+            loggedIn = true;
             Future.delayed(Duration(microseconds: 1)).then((s) =>
                 Navigator.pushReplacementNamed(
                     context, '/mainScreen')); //TODO: find another way
           } else {
+            loggedIn = false;
             Future.delayed(Duration(microseconds: 1)).then((s) =>
                 Navigator.pushReplacementNamed(
-                    context, '/registrationScreen')); //TODO: find another way
+                    context, '/mainScreen')); //TODO: find another way
+//            Future.delayed(Duration(microseconds: 1)).then((s) =>
+//                Navigator.pushReplacementNamed(
+//                    context, '/registrationScreen')); //TODO: find another way
           }
         }
         return Container(
