@@ -40,8 +40,11 @@ class MainScreenState extends State<MainScreen> {
               padding: const EdgeInsets.only(right: 12, left: 12),
               child: InkWell(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => FormPage()));
+                  if (loggedIn) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => FormPage()));
+                  } else
+                    Navigator.of(context).pushNamed('/registrationScreen');
                 },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -63,8 +66,10 @@ class MainScreenState extends State<MainScreen> {
               padding: const EdgeInsets.only(right: 8.0, left: 8),
               child: InkWell(
                 onTap: () {
-                  if (loggedIn) Navigator.pushNamed(context, '/profileScreen');
-                  else Navigator.of(context).pushNamed('/registrationScreen');
+                  if (loggedIn)
+                    Navigator.pushNamed(context, '/profileScreen');
+                  else
+                    Navigator.of(context).pushNamed('/registrationScreen');
                 },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
