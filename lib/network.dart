@@ -168,10 +168,9 @@ class Network {
     }
   }
 
-  static Future<NewsList> getNews(String authToken) async {
+  static Future<NewsList> getNews() async {
     var body = json.encode({
       "APIKEY": "SD<DJF<JDJD<",
-      "AuthToken": authToken,
     });
     final response = await http.post(
         'https://almadar.azurewebsites.net/Services/NewsManagement/NewsAPI/GetNews',
