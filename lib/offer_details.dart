@@ -151,7 +151,6 @@ class OfferDetailsState extends State<OfferDetails> {
 
   setFavorite() {
     Session.getAccessToken().then((token) {
-      print('token = ' + token);
       if (!isFav) {
         Network.setOfferFavorite(widget.offer.id, token).then((isAdded) {
           if (isAdded) {
