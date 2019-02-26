@@ -18,13 +18,14 @@ class MainScreen extends StatefulWidget {
 }
 
 class MainScreenState extends State<MainScreen> {
-  final List<String> menuItems = [
-    'contact_us',
-    'logout',
-  ];
 
   @override
   Widget build(BuildContext context) {
+    final List<String> menuItems = [
+      'contact_us',
+      loggedIn ? 'logout' : 'login',
+    ];
+
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -105,6 +106,10 @@ class MainScreenState extends State<MainScreen> {
                 }
                 if (title == 'contact_us') {
                   sendMail();
+                }
+                if(title == 'login') {
+                  Navigator.pushNamed(
+                      context, '/registrationScreen');
                 }
               },
             ),
