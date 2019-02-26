@@ -1,9 +1,9 @@
+import 'package:al_madar/madarLocalizer.dart';
 import 'package:al_madar/registration/chooseAccountScreen.dart';
 import 'package:al_madar/registration/loginScreen.dart';
 import 'package:al_madar/registration/signupScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 class RegistrationScreen extends StatefulWidget {
   @override
@@ -12,13 +12,9 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen>
     with TickerProviderStateMixin {
-
-
   @override
   void initState() {
     super.initState();
-
-
   }
 
   gotoLogin() {
@@ -45,7 +41,9 @@ class _RegistrationScreenState extends State<RegistrationScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: PageView(
+        body: Stack(
+      children: <Widget>[
+        PageView(
           controller: _controller,
           physics: new AlwaysScrollableScrollPhysics(),
           children: <Widget>[
@@ -57,7 +55,17 @@ class _RegistrationScreenState extends State<RegistrationScreen>
             SignUpScreen(),
           ],
           scrollDirection: Axis.horizontal,
-        ));
+        ),
+        Align(
+          alignment: MadarLocalizations.of(context).locale.languageCode == 'en' ?  Alignment.topLeft : Alignment.topRight,
+          child: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.white,),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+      ],
+    ));
   }
-
 }
