@@ -71,6 +71,7 @@ class Network {
       headers: headers,
     );
     if (response.statusCode == 200) {
+      print(json.decode(response.body));
       return json.decode(response.body);
     } else {
       throw Exception(response.body.toString());

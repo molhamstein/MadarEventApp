@@ -56,13 +56,22 @@ class _RegistrationScreenState extends State<RegistrationScreen>
           ],
           scrollDirection: Axis.horizontal,
         ),
-        Align(
-          alignment: MadarLocalizations.of(context).locale.languageCode == 'en' ?  Alignment.topLeft : Alignment.topRight,
-          child: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white,),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Align(
+            alignment:
+                MadarLocalizations.of(context).locale.languageCode == 'en'
+                    ? Alignment.topLeft
+                    : Alignment.topRight,
+            child: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.black87,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
           ),
         ),
       ],

@@ -101,7 +101,8 @@ class MainScreenState extends State<MainScreen> {
                 if (title == "logout") {
                   final session = Session();
                   session.logout();
-                  Navigator.pushReplacementNamed(
+                  loggedIn = false;
+                  Navigator.pushNamed(
                       context, '/registrationScreen');
                 }
                 if (title == 'contact_us') {

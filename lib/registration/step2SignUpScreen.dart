@@ -288,7 +288,7 @@ class Step2SignUpScreenState extends State<Step2SignUpScreen> {
                         textAlign: TextAlign.left,
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: 'Istanbul',
+                          hintText: MadarLocalizations.of(context).trans('your_city'),
                           hintStyle: TextStyle(color: Colors.grey),
                         ),
                       ),
@@ -340,7 +340,7 @@ class Step2SignUpScreenState extends State<Step2SignUpScreen> {
                         textAlign: TextAlign.left,
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: 'Software Engineering',
+                          hintText: MadarLocalizations.of(context).trans('your_job'),
                           hintStyle: TextStyle(color: Colors.grey),
                         ),
                       ),
