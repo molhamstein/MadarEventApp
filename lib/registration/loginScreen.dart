@@ -471,6 +471,7 @@ class LoginScreenState extends State<LoginScreen> {
         } else {
           Session.setUser(User.fromJson(json['LoggedInUser'])).then((non) {
             Navigator.pushReplacementNamed(context, '/mainScreen');
+            loggedIn = true;
           });
         }
       });
