@@ -4,6 +4,7 @@ import 'package:al_madar/madarLocalizer.dart';
 import 'package:al_madar/mainScreen.dart';
 import 'package:al_madar/profile_screen.dart';
 import 'package:al_madar/registration/forgetPasswordScreen.dart';
+import 'package:al_madar/registration/phone_screen.dart';
 import 'package:al_madar/registration/registrationScreen.dart';
 import 'package:al_madar/registration/step2SignUpScreen.dart';
 import 'package:flutter/material.dart';
@@ -90,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
       routes: <String, WidgetBuilder>{
         '/': (BuildContext context) => new LandingPage(),
         '/registrationScreen': (BuildContext context) =>
-            new RegistrationScreen(),
+            new PhoneScreen(),
         '/forgetPasswordScreen': (BuildContext context) =>
             new ForgetPasswordScreen(),
         '/mainScreen': (BuildContext context) => new MainScreen(),
