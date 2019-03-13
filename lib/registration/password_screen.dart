@@ -4,7 +4,9 @@ import 'package:al_madar/madarLocalizer.dart';
 import 'package:al_madar/main.dart';
 import 'package:al_madar/network.dart';
 import 'package:al_madar/network/session.dart';
+import 'package:al_madar/registration/forgetPasswordScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PasswordScreen extends StatefulWidget {
   final String phone;
@@ -32,141 +34,175 @@ class PasswordScreenState extends State<PasswordScreen> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      key: _scaffoldKey,
+      // key: _scaffoldKey,
       body: Stack(
         children: <Widget>[
-          new Container(
-            padding: EdgeInsets.only(bottom: 8.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              image: DecorationImage(
-                colorFilter: new ColorFilter.mode(
-                    Colors.black.withOpacity(0.05), BlendMode.dstATop),
-                image: AssetImage('assets/images/istanbul.png'),
-                fit: BoxFit.cover,
+          new GestureDetector(
+            onTap: () {
+              print("taaaped");
+              FocusScope.of(context).requestFocus(new FocusNode());
+            },
+            child: new Container(
+              padding: EdgeInsets.only(bottom: 8.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                image: DecorationImage(
+                  colorFilter: new ColorFilter.mode(
+                      Colors.black.withOpacity(0.05), BlendMode.dstATop),
+                  image: AssetImage('assets/images/istanbul.png'),
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            child: Center(
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.all(100.0),
-                    child: Center(
-                      child: Image.asset(
-                        'assets/images/logo.png',
-                        width: 100,
-                        height: 100,
+              child: Center(
+                child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.all(100.0),
+                      child: Center(
+                        child: Image.asset(
+                          'assets/images/logo.png',
+                          width: 100,
+                          height: 100,
+                        ),
                       ),
                     ),
-                  ),
-                  Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 40, right: 40),
-                        child: new Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            new Text(
-                              MadarLocalizations.of(context).trans('password'),
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).primaryColorDark,
-                                fontSize: 15.0,
+                    Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(left: 40, right: 40),
+                          child: new Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              new Text(
+                                MadarLocalizations.of(context)
+                                    .trans('password'),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).primaryColorDark,
+                                  fontSize: 15.0,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      new Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: const EdgeInsets.only(
-                            left: 40.0, right: 40.0, top: 10.0),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                                color: Colors.redAccent,
-                                width: 0.5,
-                                style: BorderStyle.solid),
+                            ],
                           ),
                         ),
-                        padding: const EdgeInsets.only(left: 0.0, right: 10.0),
-                        child: new Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            new Expanded(
-                              child: TextField(
-                                controller: passwordController,
-                                keyboardType: TextInputType.phone,
-                                textAlign: TextAlign.left,
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color:
-                                              Theme.of(context).accentColor)),
-                                  enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color:
-                                              Theme.of(context).accentColor)),
-                                  hintText: '123456789',
-                                  hintStyle: TextStyle(color: Colors.grey),
+                        new Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: const EdgeInsets.only(
+                              left: 40.0, right: 40.0, top: 10.0),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                  color: Colors.redAccent,
+                                  width: 0.5,
+                                  style: BorderStyle.solid),
+                            ),
+                          ),
+                          padding:
+                              const EdgeInsets.only(left: 0.0, right: 10.0),
+                          child: new Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              new Expanded(
+                                child: TextField(
+                                  controller: passwordController,
+                                  keyboardType: TextInputType.phone,
+                                  textAlign: TextAlign.left,
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color:
+                                                Theme.of(context).accentColor)),
+                                    enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color:
+                                                Theme.of(context).accentColor)),
+                                    hintText: '123456789',
+                                    hintStyle: TextStyle(color: Colors.grey),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        new Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    right: 20.0, left: 20.0),
+                                child: new FlatButton(
+                                  child: new Text(
+                                    MadarLocalizations.of(context)
+                                        .trans('forgot_password'),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(context).accentColor,
+                                      fontSize: 15.0,
+                                    ),
+                                    textAlign: TextAlign.end,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ForgetPasswordScreen()));
+                                  },
+                                ),
+                              )
+                            ]),
+                      ],
+                    ),
+                    Divider(
+                      height: 24.0,
+                    ),
+                    new Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.only(
+                          left: 30.0, right: 30.0, top: 20.0),
+                      alignment: Alignment.center,
+                      child: new Row(
+                        children: <Widget>[
+                          new Expanded(
+                            child: new FlatButton(
+                              shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(30.0),
+                              ),
+                              color: Colors.blue[700],
+                              onPressed: handleEmpty,
+                              child: new Container(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 20.0,
+                                  horizontal: 20.0,
+                                ),
+                                child: new Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    new Expanded(
+                                      child: Text(
+                                        MadarLocalizations.of(context)
+                                            .trans('login'),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  Divider(
-                    height: 24.0,
-                  ),
-                  new Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.only(
-                        left: 30.0, right: 30.0, top: 20.0),
-                    alignment: Alignment.center,
-                    child: new Row(
-                      children: <Widget>[
-                        new Expanded(
-                          child: new FlatButton(
-                            shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0),
-                            ),
-                            color: Colors.blue[700],
-                            onPressed: handleEmpty,
-                            child: new Container(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 20.0,
-                                horizontal: 20.0,
-                              ),
-                              child: new Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  new Expanded(
-                                    child: Text(
-                                      MadarLocalizations.of(context)
-                                          .trans('login'),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -186,9 +222,9 @@ class PasswordScreenState extends State<PasswordScreen> {
             padding: const EdgeInsets.all(16.0),
             child: Align(
               alignment:
-              MadarLocalizations.of(context).locale.languageCode == 'en'
-                  ? Alignment.topLeft
-                  : Alignment.topRight,
+                  MadarLocalizations.of(context).locale.languageCode == 'en'
+                      ? Alignment.topLeft
+                      : Alignment.topRight,
               child: IconButton(
                 icon: Icon(
                   Icons.close,
@@ -203,6 +239,11 @@ class PasswordScreenState extends State<PasswordScreen> {
         ],
       ),
     );
+  }
+
+  sendMail() {
+    launch(
+        'mailto:<services@almadarholidays.com>?subject=I Forgot my Password&body=Could you please reset my password.');
   }
 
   Widget _loading() {
@@ -239,7 +280,7 @@ class PasswordScreenState extends State<PasswordScreen> {
   showSnackBar(String error) {
     final err = error.split("!");
     final snackBar = SnackBar(
-      key: _scaffoldKey,
+      // key: _scaffoldKey,
       content: Text(err.first),
       action: SnackBarAction(
         label: 'cancel',
