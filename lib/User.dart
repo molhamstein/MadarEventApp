@@ -48,4 +48,11 @@ class User {
       json['CountryName'],
     );
   }
+
+  @override
+  String toString() {
+    return 'User{displayName: $displayName, email: $email, phone: $phone, authToken: $authToken, countryId: $countryId, googleId: $googleId, facebookId: $facebookId, address: $address, profession: $profession, city: $city, snapchatHandle: $snapchatHandle, instagramHandle: $instagramHandle, twitterHandle: $twitterHandle, countryName: $countryName}';
+  }
+
+
 }

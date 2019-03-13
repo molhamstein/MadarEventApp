@@ -1,11 +1,18 @@
 import 'package:al_madar/User.dart';
 import 'package:al_madar/bloc/auth_bloc.dart';
 import 'package:al_madar/madarLocalizer.dart';
+import 'package:al_madar/main.dart';
 import 'package:al_madar/network.dart';
 import 'package:al_madar/network/session.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatefulWidget {
+
+  final String phone;
+
+  const SignUpScreen({Key key, this.phone}) : super(key: key);
+
+
   @override
   SignUpScreenState createState() {
     return new SignUpScreenState();
@@ -23,14 +30,16 @@ class SignUpScreenState extends State<SignUpScreen> {
   @override
   void initState() {
     authBloc = AuthBloc();
+    phoneController.text = widget.phone;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Material(
-      child: Stack(
+    return Scaffold(
+      key: _scaffoldKey,
+      body: Stack(
         children: <Widget>[
           SingleChildScrollView(
             child: new Container(
@@ -66,11 +75,10 @@ class SignUpScreenState extends State<SignUpScreen> {
                           MadarLocalizations.of(context).trans('phone'),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Theme.of(context).accentColor,
+                            color: Theme.of(context).primaryColorDark,
                             fontSize: 15.0,
                           ),
                         ),
-                        Text('*', style: TextStyle(color: Theme.of(context).primaryColor),)
                       ],
                     ),
                   ),
@@ -125,11 +133,10 @@ class SignUpScreenState extends State<SignUpScreen> {
                           MadarLocalizations.of(context).trans('user_name'),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Theme.of(context).accentColor,
+                            color: Theme.of(context).primaryColorDark,
                             fontSize: 15.0,
                           ),
                         ),
-                        Text('*', style: TextStyle(color: Theme.of(context).primaryColor),),
                       ],
                     ),
                   ),
@@ -175,11 +182,10 @@ class SignUpScreenState extends State<SignUpScreen> {
                           MadarLocalizations.of(context).trans('password'),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Theme.of(context).accentColor,
+                            color: Theme.of(context).primaryColorDark,
                             fontSize: 15.0,
                           ),
                         ),
-                        Text('*', style: TextStyle(color: Theme.of(context).primaryColor),),
                       ],
                     ),
                   ),
@@ -226,7 +232,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                             MadarLocalizations.of(context).trans('email'),
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Theme.of(context).accentColor,
+                              color: Theme.of(context).primaryColorDark,
                               fontSize: 15.0,
                             ),
                           ),
@@ -264,26 +270,6 @@ class SignUpScreenState extends State<SignUpScreen> {
                       ],
                     ),
                   ),
-                  new Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20.0, left: 20.0),
-                        child: new FlatButton(
-                          child: new Text(
-                            MadarLocalizations.of(context).trans('already_have_account'),
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).accentColor,
-                              fontSize: 15.0,
-                            ),
-                            textAlign: TextAlign.end,
-                          ),
-                          onPressed: () => {},
-                        ),
-                      ),
-                    ],
-                  ),
                   new Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.only(
@@ -296,7 +282,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                             shape: new RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(30.0),
                             ),
-                            color: Theme.of(context).primaryColor,
+                            color: Colors.blue[700],
                             onPressed: handleEmpty,
                             child: new Container(
                               padding: const EdgeInsets.symmetric(
@@ -339,6 +325,24 @@ class SignUpScreenState extends State<SignUpScreen> {
               return Container();
             },
           ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Align(
+              alignment:
+              MadarLocalizations.of(context).locale.languageCode == 'en'
+                  ? Alignment.topLeft
+                  : Alignment.topRight,
+              child: IconButton(
+                icon: Icon(
+                  Icons.close,
+                  color: Colors.black87,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -363,11 +367,11 @@ class SignUpScreenState extends State<SignUpScreen> {
       action: SnackBarAction(
         label: 'cancel',
         onPressed: () {
-          Scaffold.of(context).hideCurrentSnackBar();
+          _scaffoldKey.currentState.hideCurrentSnackBar();
         },
       ),
     );
-    Scaffold.of(context).showSnackBar(snackBar);
+    _scaffoldKey.currentState.showSnackBar(snackBar);
   }
 
 
@@ -394,7 +398,8 @@ class SignUpScreenState extends State<SignUpScreen> {
           passwordController.text).then((user) {
             Session.setUser(user);
             authBloc.stopLoad();
-            Navigator.pushReplacementNamed(context, '/mainScreen');
+            loggedIn = true;
+            Navigator.of(context).pop();
           }).catchError((e){
         showSnackBar(e['Error']['Message']);
         authBloc.stopLoad();

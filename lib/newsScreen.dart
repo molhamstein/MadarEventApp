@@ -31,46 +31,33 @@ class NewsScreenState extends State<NewsScreen>
     super.build(context);
     return Material(
       color: Colors.transparent,
-      child: FutureBuilder<String>(
-        future: Session.getAccessToken(),
-        builder: (context, tokenSnapshot) {
-          if(tokenSnapshot.hasData) {
-            return FutureBuilder<NewsList>(
-              future: Network.getNews(tokenSnapshot.data),
-              builder: (context, snapshot){
-                if(snapshot.hasData) {
-                  return RefreshIndicator(
-                    key: _refreshIndicatorKey,
-                    onRefresh: refresh,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: ListView.builder(
-                        itemBuilder: (BuildContext context, int index) {
-                          return InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => PostDetails(post: snapshot.data.posts[index]),
-                                ),
-                              );
-                            },
-                            child: Ticket(post: snapshot.data.posts[index]),
-                          );
-                        },
-                        itemCount: snapshot.data.posts.length,
-                        padding: EdgeInsets.only(top: 8, bottom: 8),
-                      ),
-                    ),
-                  );
-                }
-                return Container(
-                  height: 150,
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-              },
+      child: FutureBuilder<NewsList>(
+        future: Network.getNews(),
+        builder: (context, snapshot){
+          if(snapshot.hasData) {
+            return RefreshIndicator(
+              key: _refreshIndicatorKey,
+              onRefresh: refresh,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: ListView.builder(
+                  itemBuilder: (BuildContext context, int index) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PostDetails(post: snapshot.data.posts[index]),
+                          ),
+                        );
+                      },
+                      child: Ticket(post: snapshot.data.posts[index]),
+                    );
+                  },
+                  itemCount: snapshot.data.posts.length,
+                  padding: EdgeInsets.only(top: 8, bottom: 8),
+                ),
+              ),
             );
           }
           return Container(
@@ -80,20 +67,20 @@ class NewsScreenState extends State<NewsScreen>
             ),
           );
         },
-      ),
+      )
     );
   }
 
   Future<NewsList> getNews() {
     Session.getAccessToken().then((token) {
-      return Network.getNews(token);
+      return Network.getNews();
     });
 
   }
 
   Future<void> refresh() {
     return Session.getAccessToken().then((token) {
-      Network.getNews(token).then((newsList) {
+      Network.getNews().then((newsList) {
         setState(() {
           news = newsList.posts.map((post) {
             return InkWell(

@@ -32,6 +32,25 @@ class Network {
   }
 
 
+  static  Future<int> submitPhoneNumber(String phoneNumber) async {
+    var body = json.encode({
+      'Mobile': phoneNumber,
+      'APIKEY': 'SD<DJF<JDJD<',
+    });
+    final response = await http.post(
+        'https://almadar.azurewebsites.net/Services/Administration/UserAPI/ChceckUser',
+        body: body, headers: headers);
+    if (response.statusCode == 200) {
+      print(json.decode(response.body));
+//      return User.fromJson(json.decode(response.body)['LoggedInUser']);
+    return json.decode(response.body)['ResultCode'];
+    } else {
+      print(response.body);
+      throw json.decode(response.body);
+    }
+  }
+
+
 
   static Future<User> signUp(
       String displayName, String email, String mobile, String password) async {
@@ -71,6 +90,7 @@ class Network {
       headers: headers,
     );
     if (response.statusCode == 200) {
+      print(json.decode(response.body));
       return json.decode(response.body);
     } else {
       throw Exception(response.body.toString());
@@ -168,10 +188,9 @@ class Network {
     }
   }
 
-  static Future<NewsList> getNews(String authToken) async {
+  static Future<NewsList> getNews() async {
     var body = json.encode({
       "APIKEY": "SD<DJF<JDJD<",
-      "AuthToken": authToken,
     });
     final response = await http.post(
         'https://almadar.azurewebsites.net/Services/NewsManagement/NewsAPI/GetNews',

@@ -31,14 +31,33 @@ class PostDetails extends StatelessWidget {
                       )),
                 ),
                 background: GestureDetector(
-                  onTap: (){
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => FullScreenPicture(imageUrl: post.imageUrl,)));
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => FullScreenPicture(
+                              imageUrl: post.imageUrl,
+                            )));
                   },
                   child: Hero(
                     tag: FullScreenPicture.tag,
-                    child: Image.network(
-                      post.imageUrl,
-                      fit: BoxFit.cover,
+                    child: Stack(
+                      children: <Widget>[
+                        Image.network(
+                          post.imageUrl,
+                          fit: BoxFit.cover,
+                        ),
+                        Container(
+                          height: 60,
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  colors: [
+                                Colors.black54,
+                                Colors.black54,
+                                Colors.transparent,
+                              ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter)),
+                        ),
+                      ],
                     ),
                   ),
                 ),

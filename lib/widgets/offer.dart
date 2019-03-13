@@ -1,4 +1,5 @@
 import 'package:al_madar/madarLocalizer.dart';
+import 'package:al_madar/main.dart';
 import 'package:al_madar/network.dart';
 import 'package:al_madar/network/session.dart';
 import 'package:al_madar/offersList.dart';
@@ -92,7 +93,7 @@ class OfferWidgetState extends State<OfferWidget> {
                             onPressed: setFavorite,
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                   Padding(
@@ -164,24 +165,31 @@ class OfferWidgetState extends State<OfferWidget> {
 
   setFavorite() {
     Session.getAccessToken().then((token) {
-      print('token = ' + token);
-      if (!widget.offer.favorite) {
-        Network.setOfferFavorite(widget.offer.id, token).then((isAdded) {
-          if (isAdded) {
-            setState(() {
-              icon = Icons.favorite;
-            });
-          }
-        });
-      } else {
-        Network.removeOfferFavorite(widget.offer.id, token).then((removed) {
-          if (removed) {
-            setState(() {
-              icon = Icons.favorite_border;
-            });
-          }
-        });
+
+      if (loggedIn) {
+
+        if (!widget.offer.favorite) {
+          Network.setOfferFavorite(widget.offer.id, token).then((isAdded) {
+            if (isAdded) {
+              setState(() {
+                icon = Icons.favorite;
+              });
+            }
+          });
+        } else {
+          Network.removeOfferFavorite(widget.offer.id, token).then((removed) {
+            if (removed) {
+              setState(() {
+                icon = Icons.favorite_border;
+              });
+            }
+          });
+        }
       }
+      else {
+        Navigator.of(context).pushNamed('/registrationScreen');
+      }
+
     });
   }
 }

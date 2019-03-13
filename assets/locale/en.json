@@ -58,7 +58,13 @@
   "TRY":"₺",
   "TL":"₺",
   "BHD":"BHD",
-  "update":"Update"
+  "update":"Update",
+  "form_submitted":"Submitted! We will contact you soon",
+  "your_city":"Your city",
+  "your_job":"Your job",
+  "empty_profile":"Your profile is empty."
+
+
 
 
 

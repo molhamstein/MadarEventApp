@@ -4,6 +4,8 @@ import 'package:al_madar/edit_profile.dart';
 import 'package:al_madar/madarLocalizer.dart';
 import 'package:al_madar/network.dart';
 import 'package:al_madar/network/session.dart';
+import 'package:al_madar/offer_details.dart';
+import 'package:al_madar/offersList.dart';
 import 'package:al_madar/widgets/offer.dart';
 import 'package:flutter/material.dart';
 
@@ -15,16 +17,29 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class ProfileScreenState extends State<ProfileScreen> {
-  List<OfferWidget> offers = [];
-  final List<String> menuItems = [
-    'edit_profile',
-    'edit_password',
-  ];
+  List<OfferWidget> offerWidgets = [];
+  List<Offer> offers = [];
+  List<String> menuItems = [];
+  bool empty;
 
   User user;
 
   @override
   void initState() {
+    empty = false;
+    Session.getUser().then((user) {
+      print(user.toString());
+      if (user.facebookId != null || user.googleId != null) {
+        setState(() {
+          menuItems.add('edit_profile');
+        });
+      } else {
+        setState(() {
+          menuItems.add('edit_profile');
+          menuItems.add('edit_password');
+        });
+      }
+    });
     getFavoriteOffers();
     super.initState();
   }
@@ -161,20 +176,43 @@ class ProfileScreenState extends State<ProfileScreen> {
   }
 
   body() {
-    return ListView.builder(
-      itemBuilder: (BuildContext context, int index) {
-        return offers[index];
-      },
-      itemCount: offers.length,
-      padding: EdgeInsets.only(top: 8, bottom: 8),
-    );
+    if (empty) {
+      return Container(
+        child: Center(
+          child: Text(MadarLocalizations.of(context).trans('empty_profile')),
+        ),
+      );
+    } else {
+      return ListView.builder(
+        itemBuilder: (BuildContext context, int index) {
+          return InkWell(
+            child: offerWidgets[index],
+            onTap: () async {
+              var result = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OfferDetails(
+                        offer: offers[index],
+                      ),
+                ),
+              );
+              getFavoriteOffers();
+            },
+          );
+        },
+        itemCount: offerWidgets.length,
+        padding: EdgeInsets.only(top: 8, bottom: 8),
+      );
+    }
   }
 
   getFavoriteOffers() {
     Session.getAccessToken().then((token) {
       Network.getFavoriteOffers(token).then((offersList) {
         setState(() {
-          offers = offersList.offers
+          if (offersList.offers.isEmpty) empty = true;
+          offers = offersList.offers;
+          offerWidgets = offersList.offers
               .map((offer) => OfferWidget(
                     offer: offer,
                   ))

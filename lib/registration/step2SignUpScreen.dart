@@ -1,5 +1,6 @@
 import 'package:al_madar/country_list.dart';
 import 'package:al_madar/madarLocalizer.dart';
+import 'package:al_madar/main.dart';
 import 'package:al_madar/network.dart';
 import 'package:al_madar/network/auth_provider.dart';
 import 'package:al_madar/network/session.dart';
@@ -287,7 +288,7 @@ class Step2SignUpScreenState extends State<Step2SignUpScreen> {
                         textAlign: TextAlign.left,
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: 'Istanbul',
+                          hintText: MadarLocalizations.of(context).trans('your_city'),
                           hintStyle: TextStyle(color: Colors.grey),
                         ),
                       ),
@@ -339,7 +340,7 @@ class Step2SignUpScreenState extends State<Step2SignUpScreen> {
                         textAlign: TextAlign.left,
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: 'Software Engineering',
+                          hintText: MadarLocalizations.of(context).trans('your_job'),
                           hintStyle: TextStyle(color: Colors.grey),
                         ),
                       ),
@@ -423,17 +424,19 @@ class Step2SignUpScreenState extends State<Step2SignUpScreen> {
 
       if (user.facebookId != null && user.facebookId != '') {
         Network.signUpAfterFacebookOrGoogle(user).then((user) {
-          Navigator.pushReplacementNamed(context, '/mainScreen'); //
+          loggedIn = true;
+          Navigator.of(context).pop(); //
         });
       } else if (user.googleId != null && user.googleId != '') {
         Network.signUpAfterFacebookOrGoogle(user).then((user) {
-          Navigator.pushReplacementNamed(context, '/mainScreen'); //
+          loggedIn = true;
+          Navigator.of(context).pop(); //
         });
       } else {
         Network.updateUser(user).then((user) {
           Session.setUser(user).then((s) {
-            print("country id = ${user.countryId}");
-            Navigator.pushReplacementNamed(context, '/mainScreen'); //
+            loggedIn = true;
+            Navigator.of(context).pop(); //
           });
         });
       }

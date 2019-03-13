@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:al_madar/madarLocalizer.dart';
+import 'package:al_madar/main.dart';
 import 'package:al_madar/network.dart';
 import 'package:al_madar/network/session.dart';
 import 'package:al_madar/offersList.dart';
@@ -151,26 +152,32 @@ class OfferDetailsState extends State<OfferDetails> {
 
   setFavorite() {
     Session.getAccessToken().then((token) {
-      print('token = ' + token);
-      if (!isFav) {
-        Network.setOfferFavorite(widget.offer.id, token).then((isAdded) {
-          if (isAdded) {
-            setState(() {
-              icon = Icons.favorite;
-              isFav = true;
-            });
-          }
-        });
+
+      if (loggedIn) {
+        if (!isFav) {
+          Network.setOfferFavorite(widget.offer.id, token).then((isAdded) {
+            if (isAdded) {
+              setState(() {
+                icon = Icons.favorite;
+                isFav = true;
+              });
+            }
+          });
+        } else {
+          Network.removeOfferFavorite(widget.offer.id, token).then((removed) {
+            if (removed) {
+              setState(() {
+                icon = Icons.favorite_border;
+                isFav = false;
+              });
+            }
+          });
+        }
       } else {
-        Network.removeOfferFavorite(widget.offer.id, token).then((removed) {
-          if (removed) {
-            setState(() {
-              icon = Icons.favorite_border;
-              isFav = false;
-            });
-          }
-        });
+        Navigator.of(context).pushNamed('/registrationScreen');
       }
+
+
     });
   }
 }
