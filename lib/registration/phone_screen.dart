@@ -8,6 +8,7 @@ import 'package:al_madar/registration/password_screen.dart';
 import 'package:al_madar/registration/signupScreen.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:al_madar/UserFeedBack.dart';
 
 class PhoneScreen extends StatefulWidget {
   @override
@@ -16,7 +17,7 @@ class PhoneScreen extends StatefulWidget {
   }
 }
 
-class PhoneScreenState extends State<PhoneScreen> {
+class PhoneScreenState extends State<PhoneScreen> with UserFeedback {
   AuthBloc authBloc;
   TextEditingController phoneController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -149,7 +150,7 @@ class PhoneScreenState extends State<PhoneScreen> {
                                 borderRadius: new BorderRadius.circular(30.0),
                               ),
                               color: Colors.blue[700],
-                              onPressed: handleEmpty,
+                              onPressed: handleEmpty(context),
                               child: new Container(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 20.0,
@@ -254,12 +255,20 @@ class PhoneScreenState extends State<PhoneScreen> {
     );
   }
 
-  handleEmpty() {
+  handleEmpty(context) {
     if (phoneController.text.isEmpty) {
-      showSnackBar('Mobile can\'t be empty');
+      showInSnackBar('Mobile can\'t be empty', context);
       return;
     }
     print(phoneController.text);
+    var phone = phoneController.text;
+    if (phone[0] == '0' || phone[0] == '+') {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        showInSnackBar('Wrong phone format', context);
+      });
+      return;
+    }
+    isoCode = replaceCharAt(isoCode, 0, "00");
     print(isoCode);
     var number = isoCode + phoneController.text;
     if (phoneController.text.isNotEmpty) {
@@ -279,24 +288,30 @@ class PhoneScreenState extends State<PhoneScreen> {
               builder: (context) => SignUpScreen(
                   phone: phoneController.text, isoCode: countryCode)));
       }).catchError((e) {
-        showSnackBar(e['Error']['Message']);
+        showInSnackBar(e['Error']['Message'], context);
         authBloc.stopLoad();
       });
     }
   }
 
-  showSnackBar(String error) {
-    final err = error.split("!");
-    final snackBar = SnackBar(
-      key: _scaffoldKey,
-      content: Text(err.first),
-      action: SnackBarAction(
-        label: 'cancel',
-        onPressed: () {
-          _scaffoldKey.currentState.hideCurrentSnackBar();
-        },
-      ),
-    );
-    _scaffoldKey.currentState.showSnackBar(snackBar);
+  // showSnackBar(String error) {
+  //   final err = error;
+  //   final snackBar = SnackBar(
+  //     key: _scaffoldKey,
+  //     content: Text(err),
+  //     action: SnackBarAction(
+  //       label: 'cancel',
+  //       onPressed: () {
+  //         _scaffoldKey.currentState.hideCurrentSnackBar();
+  //       },
+  //     ),
+  //   );
+  //   _scaffoldKey.currentState.showSnackBar(snackBar);
+  // }
+
+  String replaceCharAt(String oldString, int index, String newChar) {
+    return oldString.substring(0, index) +
+        newChar +
+        oldString.substring(index + 1);
   }
 }

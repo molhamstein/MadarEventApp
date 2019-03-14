@@ -148,10 +148,11 @@ class PasswordScreenState extends State<PasswordScreen> {
                                     textAlign: TextAlign.end,
                                   ),
                                   onPressed: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ForgetPasswordScreen()));
+                                    // Navigator.of(context).push(
+                                    //     MaterialPageRoute(
+                                    //         builder: (context) =>
+                                    //             ForgetPasswordScreen()));
+                                    sendMail();
                                   },
                                 ),
                               )
@@ -241,9 +242,14 @@ class PasswordScreenState extends State<PasswordScreen> {
     );
   }
 
-  sendMail() {
-    launch(
-        'mailto:<services@almadarholidays.com>?subject=I Forgot my Password&body=Could you please reset my password.');
+  sendMail() async {
+    const url =
+        'mailto:services@almadarholidays.com?subject=I Forgot my Password&body=Could you please reset my password.';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   Widget _loading() {

@@ -35,7 +35,7 @@ class SignUpScreenState extends State<SignUpScreen> {
   }
 
   setIsoCode(String code) {
-    isoCode = code;
+    isoCode = isoCode = replaceCharAt(code, 0, "00");
   }
 
   @override
@@ -426,5 +426,11 @@ class SignUpScreenState extends State<SignUpScreen> {
         authBloc.stopLoad();
       });
     }
+  }
+
+  String replaceCharAt(String oldString, int index, String newChar) {
+    return oldString.substring(0, index) +
+        newChar +
+        oldString.substring(index + 1);
   }
 }
