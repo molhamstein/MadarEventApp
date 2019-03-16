@@ -269,7 +269,7 @@ class PhoneScreenState extends State<PhoneScreen> with UserFeedback {
         if (code == 0)
           Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) => PasswordScreen(
-                    phone: phoneController.text,
+                    phone: isoCode +  phoneController.text,
                   )));
         else
           Navigator.of(context).pushReplacement(MaterialPageRoute(

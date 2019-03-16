@@ -108,7 +108,7 @@ class PasswordScreenState extends State<PasswordScreen> {
                               new Expanded(
                                 child: TextField(
                                   controller: passwordController,
-                                  keyboardType: TextInputType.phone,
+                                  keyboardType: TextInputType.text,
                                   textAlign: TextAlign.left,
                                   obscureText: true,
                                   decoration: InputDecoration(
@@ -121,7 +121,7 @@ class PasswordScreenState extends State<PasswordScreen> {
                                         borderSide: BorderSide(
                                             color:
                                                 Theme.of(context).accentColor)),
-                                    hintText: '123456789',
+                                    hintText: '*****',
                                     hintStyle: TextStyle(color: Colors.grey),
                                   ),
                                 ),

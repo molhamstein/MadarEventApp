@@ -19,6 +19,7 @@ class Network {
       'Password': password,
       'APIKEY': 'SD<DJF<JDJD<',
     });
+    print(userName);
     final response = await http.post(
         'https://almadar.azurewebsites.net/Services/Administration/UserAPI/Login',
         body: body, headers: headers);
