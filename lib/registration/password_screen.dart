@@ -286,7 +286,7 @@ class PasswordScreenState extends State<PasswordScreen> {
   showSnackBar(String error) {
     final err = error.split("!");
     final snackBar = SnackBar(
-      // key: _scaffoldKey,
+      key: _scaffoldKey,
       content: Text(err.first),
       action: SnackBarAction(
         label: 'cancel',

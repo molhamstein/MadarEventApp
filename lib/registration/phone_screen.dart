@@ -21,6 +21,7 @@ class PhoneScreenState extends State<PhoneScreen> with UserFeedback {
   AuthBloc authBloc;
   TextEditingController phoneController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   String isoCode = "+966";
   String countryCode = "SA";
   @override
@@ -38,7 +39,7 @@ class PhoneScreenState extends State<PhoneScreen> with UserFeedback {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      // key: _scaffoldKey,
+      key: _scaffoldKey,
       body: Stack(
         children: <Widget>[
           new GestureDetector(
@@ -109,26 +110,7 @@ class PhoneScreenState extends State<PhoneScreen> with UserFeedback {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
-                              new Expanded(child: phoneTextField()
-                                  // TextField(
-                                  //   controller: phoneController,
-                                  //   keyboardType: TextInputType.phone,
-                                  //   textAlign: TextAlign.left,
-                                  //   decoration: InputDecoration(
-                                  //     border: InputBorder.none,
-                                  //     focusedBorder: UnderlineInputBorder(
-                                  //         borderSide: BorderSide(
-                                  //             color:
-                                  //                 Theme.of(context).accentColor)),
-                                  //     enabledBorder: UnderlineInputBorder(
-                                  //         borderSide: BorderSide(
-                                  //             color:
-                                  //                 Theme.of(context).accentColor)),
-                                  //     hintText: '123456789',
-                                  //     hintStyle: TextStyle(color: Colors.grey),
-                                  //   ),
-                                  // ),
-                                  ),
+                              new Expanded(child: phoneTextField()),
                             ],
                           ),
                         ),
@@ -149,9 +131,12 @@ class PhoneScreenState extends State<PhoneScreen> with UserFeedback {
                               shape: new RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(30.0),
                               ),
-                              color: Colors.blue[700],
                               onPressed: handleEmpty(context),
                               child: new Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.blue[700],
+                                  borderRadius: new BorderRadius.circular(30.0),
+                                ),
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 20.0,
                                   horizontal: 20.0,
@@ -257,14 +242,14 @@ class PhoneScreenState extends State<PhoneScreen> with UserFeedback {
 
   handleEmpty(context) {
     if (phoneController.text.isEmpty) {
-      showInSnackBar('Mobile can\'t be empty', context);
+      showSnackBar('Mobile can\'t be empty');
       return;
     }
     print(phoneController.text);
     var phone = phoneController.text;
     if (phone[0] == '0' || phone[0] == '+') {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        showInSnackBar('Wrong phone format', context);
+        showSnackBar('Wrong phone format');
       });
       return;
     }
@@ -288,26 +273,26 @@ class PhoneScreenState extends State<PhoneScreen> with UserFeedback {
               builder: (context) => SignUpScreen(
                   phone: phoneController.text, isoCode: countryCode)));
       }).catchError((e) {
-        showInSnackBar(e['Error']['Message'], context);
+        showSnackBar(e['Error']['Message']);
         authBloc.stopLoad();
       });
     }
   }
 
-  // showSnackBar(String error) {
-  //   final err = error;
-  //   final snackBar = SnackBar(
-  //     key: _scaffoldKey,
-  //     content: Text(err),
-  //     action: SnackBarAction(
-  //       label: 'cancel',
-  //       onPressed: () {
-  //         _scaffoldKey.currentState.hideCurrentSnackBar();
-  //       },
-  //     ),
-  //   );
-  //   _scaffoldKey.currentState.showSnackBar(snackBar);
-  // }
+  showSnackBar(String error) {
+    final err = error.split("!");
+    final snackBar = SnackBar(
+      key: _scaffoldKey,
+      content: Text(err.first),
+      action: SnackBarAction(
+        label: 'cancel',
+        onPressed: () {
+          _scaffoldKey.currentState.hideCurrentSnackBar();
+        },
+      ),
+    );
+    // _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
 
   String replaceCharAt(String oldString, int index, String newChar) {
     return oldString.substring(0, index) +
