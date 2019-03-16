@@ -9,6 +9,7 @@ import 'package:al_madar/registration/signupScreen.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:al_madar/UserFeedBack.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class PhoneScreen extends StatefulWidget {
   @override
@@ -131,7 +132,9 @@ class PhoneScreenState extends State<PhoneScreen> with UserFeedback {
                               shape: new RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(30.0),
                               ),
-                              onPressed: handleEmpty(context),
+                              onPressed: () {
+                                handleEmpty();
+                              },
                               child: new Container(
                                 decoration: BoxDecoration(
                                   color: Colors.blue[700],
@@ -240,7 +243,7 @@ class PhoneScreenState extends State<PhoneScreen> with UserFeedback {
     );
   }
 
-  handleEmpty(context) {
+  handleEmpty() {
     if (phoneController.text.isEmpty) {
       showSnackBar('Mobile can\'t be empty');
       return;
@@ -281,17 +284,25 @@ class PhoneScreenState extends State<PhoneScreen> with UserFeedback {
 
   showSnackBar(String error) {
     final err = error.split("!");
-    final snackBar = SnackBar(
-      key: _scaffoldKey,
-      content: Text(err.first),
-      action: SnackBarAction(
-        label: 'cancel',
-        onPressed: () {
-          _scaffoldKey.currentState.hideCurrentSnackBar();
-        },
-      ),
-    );
-    // _scaffoldKey.currentState.showSnackBar(snackBar);
+    // final snackBar = SnackBar(
+    //   key: _scaffoldKey,
+    //   content: Text(err.first),
+    //   action: SnackBarAction(
+    //     label: 'cancel',
+    //     onPressed: () {
+    //       _scaffoldKey.currentState.hideCurrentSnackBar();
+    //     },
+    //   ),
+    // );
+    // // _scaffoldKey.currentState.showSnackBar(snackBar);
+    Fluttertoast.showToast(
+        msg: err.first,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 
   String replaceCharAt(String oldString, int index, String newChar) {

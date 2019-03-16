@@ -1,11 +1,10 @@
-import 'package:al_madar/User.dart';
 import 'package:al_madar/bloc/auth_bloc.dart';
 import 'package:al_madar/madarLocalizer.dart';
 import 'package:al_madar/main.dart';
 import 'package:al_madar/network.dart';
 import 'package:al_madar/network/session.dart';
-import 'package:al_madar/registration/forgetPasswordScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PasswordScreen extends StatefulWidget {
@@ -265,7 +264,7 @@ class PasswordScreenState extends State<PasswordScreen> {
 
   handleEmpty() {
     if (passwordController.text.isEmpty) {
-      showSnackBar('Mobile can\'t be empty');
+      showSnackBar('Password can\'t be empty');
       return;
     }
 
@@ -285,17 +284,25 @@ class PasswordScreenState extends State<PasswordScreen> {
 
   showSnackBar(String error) {
     final err = error.split("!");
-    final snackBar = SnackBar(
-      key: _scaffoldKey,
-      content: Text(err.first),
-      action: SnackBarAction(
-        label: 'cancel',
-        onPressed: () {
-          _scaffoldKey.currentState.hideCurrentSnackBar();
-        },
-      ),
-    );
-    _scaffoldKey.currentState.showSnackBar(snackBar);
+    // final snackBar = SnackBar(
+    //   key: _scaffoldKey,
+    //   content: Text(err.first),
+    //   action: SnackBarAction(
+    //     label: 'cancel',
+    //     onPressed: () {
+    //       _scaffoldKey.currentState.hideCurrentSnackBar();
+    //     },
+    //   ),
+    // );
+    // _scaffoldKey.currentState.showSnackBar(snackBar);
+    Fluttertoast.showToast(
+        msg: err.first,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 
   login() {

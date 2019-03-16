@@ -6,6 +6,7 @@ import 'package:al_madar/network.dart';
 import 'package:al_madar/network/session.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SignUpScreen extends StatefulWidget {
   final String phone;
@@ -382,17 +383,25 @@ class SignUpScreenState extends State<SignUpScreen> {
 
   showSnackBar(String error) {
     final err = error.split("!");
-    final snackBar = SnackBar(
-      key: _scaffoldKey,
-      content: Text(err.first),
-      action: SnackBarAction(
-        label: 'cancel',
-        onPressed: () {
-          _scaffoldKey.currentState.hideCurrentSnackBar();
-        },
-      ),
-    );
-    _scaffoldKey.currentState.showSnackBar(snackBar);
+    // final snackBar = SnackBar(
+    //   key: _scaffoldKey,
+    //   content: Text(err.first),
+    //   action: SnackBarAction(
+    //     label: 'cancel',
+    //     onPressed: () {
+    //       _scaffoldKey.currentState.hideCurrentSnackBar();
+    //     },
+    //   ),
+    // );
+    // _scaffoldKey.currentState.showSnackBar(snackBar);
+    Fluttertoast.showToast(
+        msg: err.first,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 
   handleEmpty() {

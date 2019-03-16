@@ -29,9 +29,9 @@ class OfferWidgetState extends State<OfferWidget> {
   @override
   Widget build(BuildContext context) {
     String currencyCode =
-    MadarLocalizations.of(context).trans(widget.offer.currencyCode) == null
-        ? widget.offer.currencyCode
-        : MadarLocalizations.of(context).trans(widget.offer.currencyCode);
+        MadarLocalizations.of(context).trans(widget.offer.currencyCode) == null
+            ? widget.offer.currencyCode
+            : MadarLocalizations.of(context).trans(widget.offer.currencyCode);
 
     return Material(
       color: Colors.transparent,
@@ -86,9 +86,7 @@ class OfferWidgetState extends State<OfferWidget> {
                           angle: 0.34,
                           child: IconButton(
                             icon: Icon(icon),
-                            color: Theme
-                                .of(context)
-                                .primaryColor,
+                            color: Theme.of(context).primaryColor,
                             iconSize: 32,
                             onPressed: setFavorite,
                           ),
@@ -165,9 +163,7 @@ class OfferWidgetState extends State<OfferWidget> {
 
   setFavorite() {
     Session.getAccessToken().then((token) {
-
       if (loggedIn) {
-
         if (!widget.offer.favorite) {
           Network.setOfferFavorite(widget.offer.id, token).then((isAdded) {
             if (isAdded) {
@@ -185,11 +181,9 @@ class OfferWidgetState extends State<OfferWidget> {
             }
           });
         }
-      }
-      else {
+      } else {
         Navigator.of(context).pushNamed('/registrationScreen');
       }
-
     });
   }
 }

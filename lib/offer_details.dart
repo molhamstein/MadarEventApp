@@ -152,7 +152,6 @@ class OfferDetailsState extends State<OfferDetails> {
 
   setFavorite() {
     Session.getAccessToken().then((token) {
-
       if (loggedIn) {
         if (!isFav) {
           Network.setOfferFavorite(widget.offer.id, token).then((isAdded) {
@@ -176,8 +175,6 @@ class OfferDetailsState extends State<OfferDetails> {
       } else {
         Navigator.of(context).pushNamed('/registrationScreen');
       }
-
-
     });
   }
 }
