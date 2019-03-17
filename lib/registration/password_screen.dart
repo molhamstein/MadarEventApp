@@ -242,8 +242,9 @@ class PasswordScreenState extends State<PasswordScreen> {
   }
 
   sendMail() async {
-    const url =
-        'mailto:services@almadarholidays.com?subject=I Forgot my Password&body=Could you please reset my password.';
+    var subject = Uri.encodeFull('I Forgot my Password');
+    var body = Uri.encodeFull('Could you please reset my password.');
+    var url = 'mailto:services@almadarholidays.com?subject=$subject&body=$body';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
