@@ -77,6 +77,16 @@ class Session {
     prefs.setString('country', name);
   }
 
+  static Future setWhatsappPhone(String phone) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('whatsAppPhone', phone);
+  }
+
+  static Future<String> getWhatsappPhone() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('whatsAppPhone');
+  }
+
   static Future<String> getCountryName() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('country');

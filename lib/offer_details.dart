@@ -8,6 +8,7 @@ import 'package:al_madar/offersList.dart';
 import 'package:al_madar/widgets/full_screen_picture.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html_view/flutter_html_view.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OfferDetails extends StatefulWidget {
   final Offer offer;
@@ -28,6 +29,8 @@ class OfferDetailsState extends State<OfferDetails> {
   void initState() {
     isFav = widget.offer.favorite;
     icon = isFav ? Icons.favorite : Icons.favorite_border;
+    print("offer");
+    print(widget.offer.pdfLink);
     super.initState();
   }
 
@@ -45,6 +48,14 @@ class OfferDetailsState extends State<OfferDetails> {
             SliverAppBar(
               backgroundColor: Theme.of(context).primaryColorDark,
               actions: <Widget>[
+                widget.offer.pdfLink.isNotEmpty
+                    ? IconButton(
+                        icon: Icon(
+                          Icons.file_download,
+                        ),
+                        onPressed: viewPDF,
+                      )
+                    : Container(),
                 IconButton(
                   icon: Icon(
                     icon,
@@ -148,6 +159,11 @@ class OfferDetailsState extends State<OfferDetails> {
         ),
       ),
     );
+  }
+
+  viewPDF() {
+    var link = widget.offer.pdfLink;
+    launch(link);
   }
 
   setFavorite() {

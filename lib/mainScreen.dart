@@ -3,6 +3,7 @@ import 'package:al_madar/decorated_container.dart';
 import 'package:al_madar/form.dart';
 import 'package:al_madar/madarLocalizer.dart';
 import 'package:al_madar/main.dart';
+import 'package:al_madar/network.dart';
 import 'package:al_madar/network/session.dart';
 import 'package:al_madar/newsScreen.dart';
 import 'package:al_madar/now_screen.dart';
@@ -18,11 +19,22 @@ class MainScreen extends StatefulWidget {
 }
 
 class MainScreenState extends State<MainScreen> {
+  String phone = "905306514431";
+
+  @override
+  initState() {
+    Session.getWhatsappPhone().then((value) {
+      if (value.isNotEmpty) {
+        phone = value;
+      }
+    });
+    getPhone();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     final List<String> menuItems = [
-      'contact_us',
       loggedIn ? 'logout' : 'login',
     ];
 
@@ -37,6 +49,25 @@ class MainScreenState extends State<MainScreen> {
             width: 40,
           ),
           actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0, left: 8),
+              child: InkWell(
+                onTap: () {
+                  openWhats(phone);
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    // Icon(
+                    //   Icons.person_outline,
+                    //   color: Colors.white,
+                    // ),
+                    Text(MadarLocalizations.of(context).trans('contact_us'))
+                  ],
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(right: 12, left: 12),
               child: InkWell(
@@ -102,15 +133,13 @@ class MainScreenState extends State<MainScreen> {
                   final session = Session();
                   session.logout();
                   loggedIn = false;
-                  Navigator.pushNamed(
-                      context, '/registrationScreen');
+                  Navigator.pushNamed(context, '/registrationScreen');
                 }
                 if (title == 'contact_us') {
-                  sendMail();
+                  openWhats(phone);
                 }
-                if(title == 'login') {
-                  Navigator.pushNamed(
-                      context, '/registrationScreen');
+                if (title == 'login') {
+                  Navigator.pushNamed(context, '/registrationScreen');
                 }
               },
             ),
@@ -148,8 +177,30 @@ class MainScreenState extends State<MainScreen> {
     );
   }
 
+  getPhone() async {
+    Network.getWhatsappNo().then((whatsPhone) {
+      if (whatsPhone.isNotEmpty) {
+        Session.setWhatsappPhone(whatsPhone);
+        setState(() {
+          phone = whatsPhone;
+        });
+      }
+    });
+  }
+
   sendMail() {
     launch(
         'mailto:<services@almadarholidays.com>,<reservation@almadarholidays.com>?subject=Hello');
+  }
+
+  openWhats(String phone) async {
+    phone = phone.replaceAll(new RegExp('\"'), "");
+    print("nummmber ${phone.toString()}");
+    var whatsappUrl = "whatsapp://send?phone=${phone.toString()}";
+
+    await canLaunch(whatsappUrl)
+        ? launch(whatsappUrl)
+        : print(
+            "open whatsapp app link or do a snackbar with notification that there is no whatsapp installed");
   }
 }

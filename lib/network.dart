@@ -13,7 +13,7 @@ class Network {
     'Accept': 'application/json',
   };
 
-  static  Future<User> login(String userName, String password) async {
+  static Future<User> login(String userName, String password) async {
     var body = json.encode({
       'UserName': userName,
       'Password': password,
@@ -22,7 +22,8 @@ class Network {
     print(userName);
     final response = await http.post(
         'https://almadar.azurewebsites.net/Services/Administration/UserAPI/Login',
-        body: body, headers: headers);
+        body: body,
+        headers: headers);
     if (response.statusCode == 200) {
       print(json.decode(response.body));
       return User.fromJson(json.decode(response.body)['LoggedInUser']);
@@ -32,26 +33,24 @@ class Network {
     }
   }
 
-
-  static  Future<int> submitPhoneNumber(String phoneNumber) async {
+  static Future<int> submitPhoneNumber(String phoneNumber) async {
     var body = json.encode({
       'Mobile': phoneNumber,
       'APIKEY': 'SD<DJF<JDJD<',
     });
     final response = await http.post(
         'https://almadar.azurewebsites.net/Services/Administration/UserAPI/ChceckUser',
-        body: body, headers: headers);
+        body: body,
+        headers: headers);
     if (response.statusCode == 200) {
       print(json.decode(response.body));
 //      return User.fromJson(json.decode(response.body)['LoggedInUser']);
-    return json.decode(response.body)['ResultCode'];
+      return json.decode(response.body)['ResultCode'];
     } else {
       print(response.body);
       throw json.decode(response.body);
     }
   }
-
-
 
   static Future<User> signUp(
       String displayName, String email, String mobile, String password) async {
@@ -75,6 +74,7 @@ class Network {
       throw json.decode(response.body);
     }
   }
+
   static Future<dynamic> signUpWithFacebook(
       String displayName, String email, String facebookId) async {
     var body = json.encode({
@@ -199,6 +199,19 @@ class Network {
         headers: headers);
     if (response.statusCode == 200) {
       return NewsList.fromJson(json.decode(response.body));
+    } else {
+      throw json.decode(response.body);
+    }
+  }
+
+  //https://almadar.azurewebsites.net/Services/Administration/UserAPI/GetWhatsappNo
+  static Future<String> getWhatsappNo() async {
+    final response = await http.get(
+        'https://almadar.azurewebsites.net/Services/Administration/UserAPI/GetWhatsappNo',
+        headers: headers);
+    print(response.body);
+    if (response.statusCode == 200) {
+      return response.body;
     } else {
       throw json.decode(response.body);
     }

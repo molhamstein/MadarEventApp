@@ -1,5 +1,4 @@
 class OffersList {
-
   List<Offer> offers;
 
   OffersList(this.offers);
@@ -7,10 +6,8 @@ class OffersList {
   factory OffersList.fromJson(Map<String, dynamic> json) {
     final list = json['Offers'] as List;
     return OffersList(
-        list.map((jsonPost) => Offer.fromJson(jsonPost)).toList()
-    );
+        list.map((jsonPost) => Offer.fromJson(jsonPost)).toList());
   }
-
 }
 
 class Offer {
@@ -22,20 +19,21 @@ class Offer {
   double price;
   bool favorite;
   String currencyCode;
+  String pdfLink;
 
-  Offer(this.id, this.title, this.content, this.imageUrl, this.period, this.price, this.favorite, this.currencyCode);
+  Offer(this.id, this.title, this.content, this.imageUrl, this.period,
+      this.price, this.favorite, this.currencyCode, this.pdfLink);
 
   factory Offer.fromJson(Map<String, dynamic> json) {
     return Offer(
-      json['Id'],
-      json['OffersTitle'],
-      json['OffersContent'],
-      json['OffersImage'],
-      json['OfferPeriodText'] == null ? "" : json['OfferPeriodText'],
-      json['OfferPrice'],
-      json['Favorite'],
-      json['CurrencyCode'],
-    );
+        json['Id'],
+        json['OffersTitle'],
+        json['OffersContent'],
+        json['OffersImage'],
+        json['OfferPeriodText'] == null ? "" : json['OfferPeriodText'],
+        json['OfferPrice'],
+        json['Favorite'],
+        json['CurrencyCode'],
+        json['PDFLink'] == null ? "" : json['PDFLink']);
   }
-
 }
