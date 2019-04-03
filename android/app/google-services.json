@@ -8,32 +8,97 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:258604498107:android:f4f1a79dcc84abef",
+        "mobilesdk_app_id": "1:258604498107:android:d6cff20c339f0c91",
         "android_client_info": {
           "package_name": "com.brain_socket.almadar"
         }
       },
       "oauth_client": [
         {
+          "client_id": "258604498107-otpfbdtqt8g5h7vuccfjes7ec4t37f2p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brain_socket.almadar",
+            "certificate_hash": "b101d0178a2e0f328b64ce1eee1c288036d8ad79"
+          }
+        },
+        {
           "client_id": "258604498107-nbsoomc6dangsjdg4oml98g7hl1gmm81.apps.googleusercontent.com",
-          "client_type": 3
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brain_socket.almadar",
+            "certificate_hash": "0cde4f2646b1a4719fae68766b52e308a147a555"
+          }
+        },
+        {
+          "client_id": "258604498107-bnb8bakqdmqlvr040ue3cbf3psvqqnvu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brain_socket.almadar",
+            "certificate_hash": "f548afceb6cb18345a65b18dc851f76f806b6f31"
+          }
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDmOSL1GcWZF7_yfYONAzJtgfezcM_ZKeo"
+          "current_key": "AIzaSyD2f5hnlOZGApiOxL6QpRLvKbcQavcHIqY"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "258604498107-g4olt95q7pdv8ga0a4accoerad58g07v.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "258604498107-jllkamp1d2oblakde6r60iibgim4d9p2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.almadar"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:258604498107:android:f4f1a79dcc84abef",
+        "android_client_info": {
+          "package_name": "com.example.almadar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "258604498107-ickdatb6boobaknqk2uvumlv9p26nbg1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.almadar",
+            "certificate_hash": "f662ceff921fcfbd6bae192cf32e4a23cb0f54ec"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2f5hnlOZGApiOxL6QpRLvKbcQavcHIqY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "258604498107-g4olt95q7pdv8ga0a4accoerad58g07v.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "258604498107-jllkamp1d2oblakde6r60iibgim4d9p2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.almadar"
+              }
+            }
+          ]
         }
       }
     }
