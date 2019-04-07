@@ -29,6 +29,14 @@
             "package_name": "com.brain_socket.almadar",
             "certificate_hash": "0cde4f2646b1a4719fae68766b52e308a147a555"
           }
+        },
+        {
+          "client_id": "258604498107-bnb8bakqdmqlvr040ue3cbf3psvqqnvu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brain_socket.almadar",
+            "certificate_hash": "f548afceb6cb18345a65b18dc851f76f806b6f31"
+          }
         }
       ],
       "api_key": [

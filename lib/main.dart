@@ -10,6 +10,7 @@ import 'package:al_madar/registration/step2SignUpScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter\_localizations/flutter\_localizations.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 void main() => runApp(MyApp());
 bool loggedIn;
@@ -40,6 +41,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   MainBloc mainBloc;
+  final FirebaseMessaging _messaging = FirebaseMessaging();
 
   final appColors = [
     const Color(0xFFEC1E42),
@@ -49,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     mainBloc = MainBloc();
+    _messaging.getToken().then((token){print(token);});
     super.initState();
   }
 

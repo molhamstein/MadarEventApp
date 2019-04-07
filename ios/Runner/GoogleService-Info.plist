@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>626269671729-geot5l76m9all2f34ulsepn7c2ia82a3.apps.googleusercontent.com</string>
+	<string>258604498107-frd2djqv3s1qpnkelo5o200r5vuabula.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.626269671729-geot5l76m9all2f34ulsepn7c2ia82a3</string>
+	<string>com.googleusercontent.apps.258604498107-frd2djqv3s1qpnkelo5o200r5vuabula</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>626269671729-tf10364cjaa82mjtvj8umf70fdaa511u.apps.googleusercontent.com</string>
+	<string>258604498107-bnb8bakqdmqlvr040ue3cbf3psvqqnvu.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCTAa6INSkEBNeSOA7lLcDtsjki_B5thVE</string>
+	<string>AIzaSyBIZhqhePElvI1iV6l7IMK5FceIpvpQTvY</string>
 	<key>GCM_SENDER_ID</key>
-	<string>626269671729</string>
+	<string>258604498107</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.almadar.ios</string>
 	<key>PROJECT_ID</key>
-	<string>jawlatcom</string>
+	<string>al-madar-1542880489328</string>
 	<key>STORAGE_BUCKET</key>
-	<string>jawlatcom.appspot.com</string>
+	<string>al-madar-1542880489328.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,8 +31,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:626269671729:ios:d8cbe6b97057aac8</string>
+	<string>1:258604498107:ios:d8cbe6b97057aac8</string>
 	<key>DATABASE_URL</key>
-	<string>https://jawlatcom.firebaseio.com</string>
+	<string>https://al-madar-1542880489328.firebaseio.com</string>
 </dict>
 </plist>
