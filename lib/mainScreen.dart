@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:al_madar/AboutScreen.dart';
 import 'package:al_madar/decorated_container.dart';
 import 'package:al_madar/form.dart';
@@ -10,8 +12,12 @@ import 'package:al_madar/now_screen.dart';
 import 'package:al_madar/offersScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:device_info/device_info.dart';
 
 class MainScreen extends StatefulWidget {
+  final bool afterLogin;
+  const MainScreen({Key key, this.afterLogin = false}) : super(key: key);
   @override
   MainScreenState createState() {
     return new MainScreenState();
@@ -20,7 +26,7 @@ class MainScreen extends StatefulWidget {
 
 class MainScreenState extends State<MainScreen> {
   String phone = "905306514431";
-
+  FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
   @override
   initState() {
     Session.getWhatsappPhone().then((value) {
@@ -29,6 +35,20 @@ class MainScreenState extends State<MainScreen> {
       }
     });
     getPhone();
+    _firebaseMessaging.configure();
+    _firebaseMessaging.getToken().then((token) {
+      print('token = ' + token);
+    }).catchError((e) {
+      print(e);
+    });
+
+    _firebaseMessaging.onTokenRefresh.listen((token) {
+      print('token =  $token');
+    });
+
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(sound: true, badge: true, alert: true));
+
     setState(() {});
   }
 
