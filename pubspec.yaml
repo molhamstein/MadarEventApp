@@ -67,6 +67,7 @@ flutter:
     - assets/images/
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
+    - assets/images/ic_whatsapp.png
 
     - assets/locale/en.json
     - assets/locale/ar.json

@@ -48,6 +48,7 @@ class MainScreenState extends State<MainScreen> {
 
     _firebaseMessaging.requestNotificationPermissions(
         const IosNotificationSettings(sound: true, badge: true, alert: true));
+    _firebaseMessaging.subscribeToTopic('allUsers');
 
     setState(() {});
   }
@@ -83,7 +84,8 @@ class MainScreenState extends State<MainScreen> {
                     //   Icons.person_outline,
                     //   color: Colors.white,
                     // ),
-                    Text(MadarLocalizations.of(context).trans('contact_us'))
+                    new Image.asset('assets/images/ic_whatsapp.png',width: 30,height: 30,)
+//                    Text(MadarLocalizations.of(context).trans('contact_us'))
                   ],
                 ),
               ),
