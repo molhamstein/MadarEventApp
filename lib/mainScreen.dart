@@ -14,6 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:device_info/device_info.dart';
+//import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
 
 class MainScreen extends StatefulWidget {
   final bool afterLogin;
@@ -26,9 +28,23 @@ class MainScreen extends StatefulWidget {
 
 class MainScreenState extends State<MainScreen> {
   String phone = "905306514431";
+
   FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
+//  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin  =new FlutterLocalNotificationsPlugin() ;
+
   @override
   initState() {
+//    var android = new AndroidInitializationSettings('mipmap/ic_launcher');
+//    var ios = new IOSInitializationSettings();
+//    var platform =new InitializationSettings(android, ios);
+//    flutterLocalNotificationsPlugin.initialize(platform);
+
+    _firebaseMessaging.configure(onMessage: (Map <String , dynamic> msg){
+//      showNotification(msg);
+    });
+
+
+
     Session.getWhatsappPhone().then((value) {
       if (value.isNotEmpty) {
         phone = value;
@@ -225,4 +241,11 @@ class MainScreenState extends State<MainScreen> {
         : print(
             "open whatsapp app link or do a snackbar with notification that there is no whatsapp installed");
   }
+
+//   showNotification(Map<String, dynamic> msg) async {
+//    var android = new AndroidNotificationDetails("channel_id", "Channel Name", "Channel description");
+//    var ios = new IOSNotificationDetails();
+//    var platform = new NotificationDetails(android, ios);
+//   await flutterLocalNotificationsPlugin.show(0, "this is title", "this is body", platform);
+//   }
 }
