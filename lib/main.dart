@@ -52,6 +52,18 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     mainBloc = MainBloc();
     _messaging.getToken().then((token){print(token);});
+//
+//    _messaging.configure(onMessage: (Map<String, dynamic> message){
+//      print('on message');
+////
+//    },onResume:(Map<String, dynamic> message){
+//      print(' onResume');
+//
+//    },onLaunch:(Map<String, dynamic> message){
+//      print(' onResume');
+//
+//    }  );
+
     super.initState();
   }
 

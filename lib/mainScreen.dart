@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:device_info/device_info.dart';
-//import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 
 class MainScreen extends StatefulWidget {
@@ -30,17 +30,21 @@ class MainScreenState extends State<MainScreen> {
   String phone = "905306514431";
 
   FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
-//  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin  =new FlutterLocalNotificationsPlugin() ;
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin  =new FlutterLocalNotificationsPlugin() ;
 
   @override
   initState() {
-//    var android = new AndroidInitializationSettings('mipmap/ic_launcher');
-//    var ios = new IOSInitializationSettings();
-//    var platform =new InitializationSettings(android, ios);
-//    flutterLocalNotificationsPlugin.initialize(platform);
+    var android = new AndroidInitializationSettings('mipmap/ic_launcher');
+    var ios = new IOSInitializationSettings();
+    var platform =new InitializationSettings(android, ios);
+    flutterLocalNotificationsPlugin.initialize(platform);
 
     _firebaseMessaging.configure(onMessage: (Map <String , dynamic> msg){
-//      showNotification(msg);
+      print(msg.keys.toString());
+      print(msg);
+
+
+      showNotification(msg);
     });
 
 
@@ -51,15 +55,15 @@ class MainScreenState extends State<MainScreen> {
       }
     });
     getPhone();
-    _firebaseMessaging.configure();
+//    _firebaseMessaging.configure();
     _firebaseMessaging.getToken().then((token) {
-      print('token = ' + token);
+//      print('token = ' + token);
     }).catchError((e) {
-      print(e);
+//      print(e);
     });
 
     _firebaseMessaging.onTokenRefresh.listen((token) {
-      print('token =  $token');
+//      print('token =  $token');
     });
 
     _firebaseMessaging.requestNotificationPermissions(
@@ -242,10 +246,11 @@ class MainScreenState extends State<MainScreen> {
             "open whatsapp app link or do a snackbar with notification that there is no whatsapp installed");
   }
 
-//   showNotification(Map<String, dynamic> msg) async {
-//    var android = new AndroidNotificationDetails("channel_id", "Channel Name", "Channel description");
-//    var ios = new IOSNotificationDetails();
-//    var platform = new NotificationDetails(android, ios);
-//   await flutterLocalNotificationsPlugin.show(0, "this is title", "this is body", platform);
-//   }
+   showNotification(Map<String, dynamic> msg) async {
+    print(msg);
+    var android = new AndroidNotificationDetails("channel_id", "Channel Name", "Channel description");
+    var ios = new IOSNotificationDetails();
+    var platform = new NotificationDetails(android, ios);
+   await flutterLocalNotificationsPlugin.show(0, msg['notification']['title'], msg['notification']['body'], platform);
+   }
 }
